@@ -28,7 +28,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
     # convert to string
     kpt_string = f'{kx} {ky} {kz}' 
-    kpt_shift_string = f'{shift_x} {shift_y} {shift_x}'
+    kpt_shift_string = f'{shift_x} {shift_y} {shift_z}'
 
     keywords_non_metal = {
         'output_detail': 'Normal',
