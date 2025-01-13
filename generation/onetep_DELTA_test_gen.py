@@ -50,7 +50,8 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'do_properties': False,
         'species_pot' : [f'{element} {element}_NCP19_PBE_OTF.usp'],
-        'kpoints_list' : [kpt_string]
+        'kpoint_grid_size' : kpt_string,
+        'kpoint_grid_shift' : kpt_shift_string
     }
 
     keywords_nobel_gas= {
