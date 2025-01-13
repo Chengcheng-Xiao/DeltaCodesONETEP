@@ -36,7 +36,7 @@ name=element
 num_atoms=$(grep "Totals" 1.0/*95.onetep | awk '{print $2}')
 edft=$(grep "edft" 1.0/*.dat|awk '{print $3}')
 bash ../../analyse/get_EOS.sh ../../analylse/get_EOS.py > EOS.dat
-python ../../analyse/delta.py EOS.dat $edft H $num_atoms
+python ../../analyse/delta.py EOS.dat $edft $name $num_atoms
 ```
 
 ### [Optional] To delete all dirs
