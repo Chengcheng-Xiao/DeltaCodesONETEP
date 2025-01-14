@@ -73,6 +73,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'minit_lnv' : -1,
         'spin' : 0,
         'spin_polarized' : False,
+        'maxit_hotelling': 0,
 
 
         'do_properties': False,
