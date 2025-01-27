@@ -3,43 +3,63 @@
 This repo provides all inputs to run DeltaCodesDFT using ONETEP.
 
 ## Input files
-All input files are located in `generate` dir.
+All input files used to calculate the Delta values are located in `work`
+dir.
 
-### [Optional] Generate input files
+### Generate input files
 ```
 python onetep_DELTA_test_gen.py ../DeltaCodesDFT/CIFs
 ! Copy pseudopotentials
 bash get_pseudo.sh
 ```
 Note that FM systems (Fe, Co and Ni) and AFM systems (O [↑↑↓↓], Cr [↑↓↑↓], and 
-Mn[↑↓]) needs to manually modified.
+Mn[↑↓]) needs to be manually modified. And some calculations might not converge
+with the generated inputs.
 
-## Running calculations [in element_dir]
+## Running calculations
 ```
-cd element/1.0
-mpirun -n ...
+ONETEP_PATH=/PATH/TO/ONETEP/EXE/onetep.ARCH
+for element in $(ls -d */)
+do
+
+cd $element
+
+cd 1.0
+mpiexec $ONETEP_PATH | tee log
 cd ../
 
 for i in 0.94 0.96 0.98 1.02 1.04 1.06
 do
 cp 1.0/*.dkn 1.0/*.tightbox_ngwfs $i
 cd $i
-mpirun -n ...
+mpiexec $ONETEP_PATH | tee log
 rm *.dkn *.tightbox_ngwfs
 cd ../
 done
+
+cd ../
+
+done
 ```
 
-## Getting results [in element dir]
+## Getting results
 ```
-name=element
+for element in $(ls -d */ | sed 's/\///g')
+do
+
+cd $element
+
+name=$element
 num_atoms=$(grep "Totals" 1.0/*95.onetep | awk '{print $2}')
 edft=$(grep "edft" 1.0/*.dat|awk '{print $3}')
 bash ../../analyse/get_EOS.sh ../../analylse/get_EOS.py > EOS.dat
-python ../../analyse/delta.py EOS.dat $edft $name $num_atoms
-```
+echo -n $i" ";
+python ../../analyse/delta.py EOS.dat $edft $name $num_atoms | tail -3 | head -1 | awk '{print $2" "$3" "$4}'
 
-### [Optional] To delete all dirs
+cd ../
+
+done
 ```
-rm -r $(ls -d */)
-```
+The Delta values can be obtained using
+[DeltaCodesDFT](https://github.com/molmod/DeltaCodesDFT). The calculated
+Equation of States can be found [here](./ONETEP.txt).

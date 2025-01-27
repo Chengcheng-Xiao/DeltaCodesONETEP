@@ -45,7 +45,7 @@ Bp_w2K = dcdft_dct['wien2k_Bp']
 
 # v0, B, Bp, Delta_value
 print('        V0(Å^3)      B0(eV/Å^3)   B1')
-print(f'ONETEP: {v0:0.10f} {B:0.10f} {Bp:0.10f}')
-print(f'WIEN2K: {v0_w2K:0.10f} {B_w2K:0.10f} {Bp_w2K:0.10f}')
+print(f'ONETEP: {v0:0.10f} {B/(1e-24*kJ):0.10f} {Bp:0.10f}')
+print(f'WIEN2K: {v0_w2K:0.10f} {B_w2K/(1e-24*kJ):0.10f} {Bp_w2K:0.10f}')
 
 print(f'DELTA = {delta(v0, B, Bp, v0_w2K, B_w2K, Bp_w2K):0.10f}')
