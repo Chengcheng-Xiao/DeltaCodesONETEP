@@ -51,9 +51,9 @@ cd $element
 
 name=$element
 num_atoms=$(grep "Totals" 1.0/*95.onetep | awk '{print $2}')
-edft=$(grep "edft" 1.0/*.dat|awk '{print $3}')
-bash ../../analyse/get_EOS.sh ../../analylse/get_EOS.py > EOS.dat
-echo -n $i" ";
+edft=$(grep "edft" 1.0/*.dat | head -1 | awk '{print $3}')
+bash ../../analyse/get_EOS.sh ../../analyse/get_EOS.py > EOS.dat
+echo -n $element" ";
 python ../../analyse/delta.py EOS.dat $edft $name $num_atoms | tail -3 | head -1 | awk '{print $2" "$3" "$4}'
 
 cd ../
