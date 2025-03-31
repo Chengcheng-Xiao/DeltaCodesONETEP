@@ -62,4 +62,5 @@ done
 ```
 The Delta values can be obtained using
 [DeltaCodesDFT](https://github.com/molmod/DeltaCodesDFT). The calculated
-Equation of States can be found [here](./ONETEP.txt).
+Equation of States can be found [here](./ONETEP.txt). The calculated Delta value
+is 0.962 meV/Atom.
