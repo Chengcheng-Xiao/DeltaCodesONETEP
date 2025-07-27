@@ -10,7 +10,7 @@ if [ -f $EOS_script ]; then
   for i in 0.94  0.96  0.98  1.0  1.02  1.04  1.06
   do
   cd $i
-  python '../'$EOS_script *95.onetep
+  python '../'$EOS_script *.onetep
   cd ../
   done
 fi

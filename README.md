@@ -12,9 +12,10 @@ python onetep_DELTA_test_gen.py ../DeltaCodesDFT/CIFs
 ! Copy pseudopotentials
 bash get_pseudo.sh
 ```
-Note that FM systems (Fe, Co and Ni) and AFM systems (O [↑↑↓↓], Cr [↑↓↑↓], and 
-Mn[↑↓]) needs to be manually modified. And some calculations might not converge
-with the generated inputs.
+Note that FM systems (Fe, Co and Ni) and AFM systems (O [↑↑↓↓], Cr [↑↓↑↓], and
+Mn[↑↓]) needs to be manually modified. And some calculations might have trouble
+converge with the generated inputs. The tested inputs are provided in the `work`
+directory.
 
 ## Running calculations
 ```
@@ -37,6 +38,10 @@ rm *.dkn *.tightbox_ngwfs
 cd ../
 done
 
+cd 1.0
+rm *.dkn *.tightbox_ngwfs
+cd ../
+
 cd ../
 
 done
@@ -50,7 +55,7 @@ do
 cd $element
 
 name=$element
-num_atoms=$(grep "Totals" 1.0/*95.onetep | awk '{print $2}')
+num_atoms=$(grep "Totals" 1.0/*.onetep | awk '{print $2}')
 edft=$(grep "edft" 1.0/*.dat | head -1 | awk '{print $3}')
 bash ../../analyse/get_EOS.sh ../../analyse/get_EOS.py > EOS.dat
 echo -n $element" ";
@@ -60,7 +65,14 @@ cd ../
 
 done
 ```
+The calculated Equation of States can be found [here](./ONETEP.txt). 
+
 The Delta values can be obtained using
-[DeltaCodesDFT](https://github.com/molmod/DeltaCodesDFT). The calculated
-Equation of States can be found [here](./ONETEP.txt). The calculated Delta value
-is 0.962 meV/Atom.
+[DeltaCodesDFT](https://github.com/molmod/DeltaCodesDFT). E.g.,
+
+
+```
+python calcDelta.py ONETEP.txt WIEN2k.txt --stdout
+```
+
+The calculated average Delta value is 1.002 meV/Atom.
