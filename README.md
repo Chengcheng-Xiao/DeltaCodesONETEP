@@ -2,6 +2,7 @@
 
 This repo provides all inputs to run DeltaCodesDFT using ONETEP.
 
+## Input files
 ### Generate input files
 ```
 python onetep_DELTA_test_gen.py ../DeltaCodesDFT/CIFs
@@ -12,7 +13,7 @@ Note that FM systems (Fe, Co and Ni) and AFM systems (O [↑↑↓↓], Cr [↑�
 Mn[↑↓]) needs to be manually modified. And some calculations might have trouble
 converge with the generated inputs.
 
-## Tested Input files
+### Tested Input files
 All input files that has been tested and used to calculate the Delta values can
 be found in in `work` directory.
 
