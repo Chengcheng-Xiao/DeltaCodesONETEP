@@ -12,18 +12,6 @@ Note that FM systems (Fe, Co and Ni) and AFM systems (O [↑↑↓↓], Cr [↑�
 Mn[↑↓]) needs to be manually modified. And some calculations might have trouble
 converge with the generated inputs.
 
-The general input files are generated using the folowing logic:
-
-- exchange-correlation functional: PBE
-- relativistic scheme: scalar relativistic (Koelling-Harmon)
-- assignment of core / valence states: see table
-- basis set size grid density: see table
-- k-mesh density: see table (grid values and number of k-points in the
-  irreducible wedge of the 1st Brillouin zone (#k)); this choice achieves
-  spacing ∆k < 0.0754 A−1; Grid is Gamma-centered.
-- reciprocal-space integration method: Fermi-Dirac smearing with a fictitious
-  temperature corresponding to 0.05 eV
-
 ## Tested Input files
 All input files that has been tested and used to calculate the Delta values can
 be found in in `work` directory.
@@ -93,6 +81,33 @@ python calcDelta.py ONETEP.txt WIEN2k.txt --stdout
 ```
 
 The calculated average Delta value is 1.002 meV/Atom.
+
+-------------------------------------------------------------------------------
+
+## GENERAL INFORMATION
+
+- exchange-correlation functional: PBE
+- relativistic scheme: scalar relativistic (Koelling-Harmon)
+- assignment of core / valence states: see table
+- basis set size grid density: see table
+- k-mesh density: see table (grid values and number of k-points in the
+  irreducible wedge of the 1st Brillouin zone (#k)); this choice achieves
+  spacing ∆k < 0.0754 A−1; Grid is Gamma-centered.
+- reciprocal-space integration method: Fermi-Dirac smearing with a fictitious
+  temperature corresponding to 0.05 eV
+
+## METHOD-SPECIFIC INFORMATION
+- pseudopotential library: CASTEP “on-the-fly” optimized norm-conserving
+  Vanderbilt (ONCVPSP). Settings for “NCP19” library release 
+  
+- pseudopotential core radii: see table (rc) 
+- local channel: see table (lloc) 
+- non-local core radii: Same as rc. 
+- number of projectors: Mostly 1 per valence l channel plus 1 per semi-core
+  state, except for O (2s and 2p) , Cr-Ni (3d), Nb (4d), W and Re (5p), Lu, Ir,
+  Pt, Au (5p and 5d) and Pb (6s, 6p, 5d) where 2 per channel were used.
+- projector generation: KE-Optimized RRKJ. 
+- pseudization radius for NLCC core charge 0.7 rc 
 
 ## Table of parameters
 
