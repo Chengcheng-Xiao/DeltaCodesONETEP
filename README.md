@@ -80,7 +80,7 @@ The Delta values can be obtained using
 python calcDelta.py ONETEP.txt WIEN2k.txt --stdout
 ```
 
-The calculated average Delta value is 1.002 meV/Atom.
+The calculated average Delta value is 0.989 meV/Atom.
 
 -------------------------------------------------------------------------------
 
