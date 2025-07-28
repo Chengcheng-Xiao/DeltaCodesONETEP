@@ -39,7 +39,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_cmplx_ngwfs' : True,
         'extend_ngwf' : 'T T T',
-        'kpoint_method' : 'KP',
+        'kpoint_method' : 'PW',
         'full_rand_ngwf' : True,
         'rand_seed_ngwf_dynamic' : False,
         'permit_unusual_ngwf_count' : True,
@@ -51,7 +51,10 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'do_properties': False,
         'species_pot' : [f'{element} {element}_NCP19_PBE_OTF.usp'],
         'kpoint_grid_size' : kpt_string,
-        'kpoint_grid_shift' : kpt_shift_string
+        'kpoint_grid_shift' : kpt_shift_string,
+
+        'use_symmetry' : True,
+        'use_time_reversal' : True
     }
 
     keywords_nobel_gas= {
@@ -63,7 +66,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_cmplx_ngwfs' : True,
         'extend_ngwf' : 'T T T',
-        'kpoint_method' : 'KP',
+        'kpoint_method' : 'PW',
         'full_rand_ngwf' : True,
         'rand_seed_ngwf_dynamic' : False,
         'permit_unusual_ngwf_count' : True,
@@ -75,6 +78,8 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'spin_polarized' : False,
         'maxit_hotelling': 0,
 
+        'use_symmetry' : True,
+        'use_time_reversal' : True,
 
         'do_properties': False,
         'species_pot' : [f'{element} {element}_NCP19_PBE_OTF.usp'],
@@ -100,7 +105,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_cmplx_ngwfs' : True,
         'extend_ngwf' : 'T T T',
-        'kpoint_method' : 'KP',
+        'kpoint_method' : 'PW',
         'full_rand_ngwf' : True,
         'rand_seed_ngwf_dynamic' : False,
         'permit_unusual_ngwf_count' : True,
@@ -111,7 +116,10 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'species_pot' : [f'{element} {element}_NCP19_PBE_OTF.usp'],
         'kpoint_grid_size' : kpt_string,
         'kpoint_grid_shift' : kpt_shift_string,
-        'maxit_hotelling' : 0
+        'maxit_hotelling' : 0,
+
+        'use_symmetry' : True,
+        'use_time_reversal' : True
     }
 
     keywords_metal_mag = {
@@ -123,7 +131,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'edft': True,
         'edft_maxit': 4,
-        'edft_smearing_width' : '0.2 eV',
+        'edft_smearing_width' : '0.05 eV',
         'eigensolver_orfac': '-1',
         'eigensolver_abstol': '-1',
         'occ_mix' : 1.0,
@@ -135,7 +143,7 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_cmplx_ngwfs' : True,
         'extend_ngwf' : 'T T T',
-        'kpoint_method' : 'KP',
+        'kpoint_method' : 'PW',
         'full_rand_ngwf' : True,
         'rand_seed_ngwf_dynamic' : False,
         'permit_unusual_ngwf_count' : True,
@@ -146,7 +154,10 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'species_pot' : [f'{element} {element}_NCP19_PBE_OTF.usp'],
         'kpoint_grid_size' : kpt_string,
         'kpoint_grid_shift' : kpt_shift_string,
-        'maxit_hotelling' : 0
+        'maxit_hotelling' : 0,
+
+        'use_symmetry' : True,
+        'use_time_reversal' : True
     }
 
     if mode == 'non_metal':
@@ -209,10 +220,10 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
     return
 
 #------------------------------------------------------------------------------
-non_metal = [1,7,9,15,17]
-nobel_gas = [2,10,18,36,54,86]
-mag_metal_AFM = [8,24,25]
-mag_metal_FM = [26,27,28]
+non_metal = [1,7,9,15,17] # H, N, F, P, Cl
+nobel_gas = [2,10,18,36,54,86] # He, Ne, Ar, Kr, Xe, Rn
+mag_metal_AFM = [8,24,25] # O, Cr, Mn
+mag_metal_FM = [26,27,28] # Fe, Co, Ni
 
 df = pd.read_csv('CASTEP.csv',index_col=0)
 

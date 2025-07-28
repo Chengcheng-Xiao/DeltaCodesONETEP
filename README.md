@@ -89,20 +89,25 @@ The calculated average Delta value is 0.989 meV/Atom.
 
 - exchange-correlation functional: PBE
 - relativistic scheme: scalar relativistic (Koelling-Harmon)
-- assignment of core / valence states: see table
-- basis set size grid density: see table
-- k-mesh density: see table (grid values and number of k-points in the
-  irreducible wedge of the 1st Brillouin zone (#k)); this choice achieves
-  spacing ∆k < 0.0754 A−1; Grid is Gamma-centered.
+- assignment of core / valence states: see
+  [table](README.md#table-of-parameters)
+- basis set size grid density: see [table](README.md#table-of-parameters)
+- k-mesh density: see [table](README.md#table-of-parameters) (grid values and
+  number of k-points in the irreducible wedge of the 1st Brillouin zone (#k));
+this choice achieves spacing ∆k < 0.0754 A−1; Grid is Gamma-centered.
 - reciprocal-space integration method: Fermi-Dirac smearing with a fictitious
   temperature corresponding to 0.05 eV
+- Density kernel treatment:
+  - Li-Nunes-Vanderbilt (LNV): H, N, F, P, Cl
+  - Fixed kernel: He, Ne, Ar, Kr, Xe, Rn
+  - ensemble dft (EDFT): rest of the elements
 
 ## METHOD-SPECIFIC INFORMATION
 - pseudopotential library: CASTEP “on-the-fly” optimized norm-conserving
   Vanderbilt (ONCVPSP). Settings for “NCP19” library release 
   
-- pseudopotential core radii: see table (rc) 
-- local channel: see table (lloc) 
+- pseudopotential core radii: see [table](README.md#table-of-parameters) (rc) 
+- local channel: see [table](README.md#table-of-parameters) (lloc) 
 - non-local core radii: Same as rc. 
 - number of projectors: Mostly 1 per valence l channel plus 1 per semi-core
   state, except for O (2s and 2p) , Cr-Ni (3d), Nb (4d), W and Re (5p), Lu, Ir,
