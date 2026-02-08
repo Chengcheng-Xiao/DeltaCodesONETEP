@@ -36,12 +36,13 @@ Reading geometry and species blocks from file "H.dat" ...
 ---------------------------------- INPUT FILE ----------------------------------
 --------------------------------------------------------------------------------
 
-cutoff_energy : 1280 eV                                                         
+cutoff_energy = 1780 eV                                                         
 do_properties : F                                                               
 edft : F                                                                        
 extend_ngwf : T T T                                                             
 forces_output_detail : verbose                                                  
-full_rand_ngwf : T                                                              
+full_rand_ngwf : F                                                              
+ngwfs_init_recip : T                                                            
 kpoint_grid_shift : 0 0 0                                                       
 kpoint_grid_size : 25 25 17                                                     
 kpoint_method : PW                                                              
@@ -51,8 +52,6 @@ paw : F
 permit_unusual_ngwf_count : T                                                   
 pseudo_path : .                                                                 
 rand_seed_ngwf_dynamic : F                                                      
-read_denskern : T                                                               
-read_tightbox_ngwfs : T                                                         
 spin : 0                                                                        
 spin_polarized : F                                                              
 task : SinglePoint                                                              
@@ -104,31 +103,31 @@ Totals:      4         4         4
 --------------------------------------------------------------------------------
 
 =============================== PSINC grid sizes ===============================
-                      Simulation cell:   21 x  21 x  25
-                              FFT-box:   21 x  21 x  25
-                                  PPD:   21 x  21 x  25
-Grid space d1=  0.358210421851a0 (KE cutoff=  59.20080Eh =1610.93571eV)
-Grid space d2=  0.358210422472a0 (KE cutoff=  59.20080Eh =1610.93570eV)
-Grid space d3=  0.375639106431a0 (KE cutoff=  53.83471Eh =1464.91709eV)
+                      Simulation cell:   25 x  25 x  33
+                              FFT-box:   25 x  25 x  33
+                                  PPD:   25 x  25 x  33
+Grid space d1=  0.300896754354a0 (KE cutoff=  83.90136Eh =2283.07215eV)
+Grid space d2=  0.300896754876a0 (KE cutoff=  83.90136Eh =2283.07214eV)
+Grid space d3=  0.284575080630a0 (KE cutoff=  93.80160Eh =2552.47153eV)
 ================================================================================
 
 ********************* Fourier parallelisation information **********************
-       Coarse grid (whole simulation cell) dimensions:     21    21    25
-          Real-space ('12') slabs/proc (min max mean):     25    25    25
-         Recip-space ('23') slabs/proc (min max mean):     11    11    11
+       Coarse grid (whole simulation cell) dimensions:     25    25    33
+          Real-space ('12') slabs/proc (min max mean):     33    33    33
+         Recip-space ('23') slabs/proc (min max mean):     13    13    13
 ********************************************************************************
 
 ********************* Fourier parallelisation information **********************
-       Double grid (whole simulation cell) dimensions:     42    42    50
-          Real-space ('12') slabs/proc (min max mean):     50    50    50
-         Recip-space ('23') slabs/proc (min max mean):     22    22    22
+       Double grid (whole simulation cell) dimensions:     50    50    66
+          Real-space ('12') slabs/proc (min max mean):     66    66    66
+         Recip-space ('23') slabs/proc (min max mean):     26    26    26
 ********************************************************************************
 
 Atom SCF Calculation for H  : Z (AE atom) =   1 : Z (PS atom) =   1
 Config String: 1s1.0
 Orbitals (num,occ):  1     1.00
 Orbitals   (num,l):  1        0
-Atom SCF converged after  18 iterations to a total energy of     -0.45839401
+Atom SCF converged after  18 iterations to a total energy of     -0.45839415
  
 ============================= Symmetry information =============================
     Number of symmetry operations =          24
@@ -162,24 +161,35 @@ Basis initialisation ...
 ... done
 Sparse matrix initialisation ...
  done
+NGWF initialisation ... done
+Density renormalisation ...
+Target Charge:     4.000000000000 ; Input Charge:     3.915331805100
+Density kernel initialisation
 
-Reading NGWFs from file "H0.tightbox_ngwfs" ...  done
-
-Reading density kernel from file "H0.dkn" ... done
+Writing density kernel to file "H0.dkn" ... done
 
 >>> Optimising kernel for current NGWFs:
+   iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
+    1        -2.202847625758E+00     1.8963E-04     1.8963E-04
+    2        -2.202847877649E+00     1.4461E-05     1.4461E-05    -2.5189E-07
+    3        -2.202847879104E+00     1.2926E-06     1.2926E-06    -1.4556E-09
+    4        -2.202847879117E+00     2.5325E-07     2.5325E-07    -1.3042E-11
+    5        -2.202847879117E+00     8.2647E-08     8.2647E-08    -2.5047E-13
+Finished density kernel iterations (   5)
+
+Writing density kernel to file "H0.dkn" ... done
 
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.20232218352655E+00  Eh
-     Estimated bandgap           =   2.3058E-01  Eh
-     RMS occupancy error         =   1.0561E-01
-     [H,K] commutator            =   4.7695E-02
+     Total energy                =  -2.20284787911744E+00  Eh
+     Estimated bandgap           =   5.5656E-01  Eh
+     RMS occupancy error         =   9.9669E-17
+     [H,K] commutator            =   8.2647E-08
      k-point number  1
-     Occupancy bounds            = [  0.000:  0.989]
+     Occupancy bounds            = [ -0.000:  1.000]
      k-point number  2
-     Occupancy bounds            = [  0.000:  0.991]
+     Occupancy bounds            = [  0.000:  1.000]
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -191,24 +201,24 @@ Reading density kernel from file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  5.8241E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  5.6978E-04 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.28888389462986E+00 Eh
-   Predicted gain in energy  =      -8.65617111033070E-02 Eh
+   Predicted total energy    =      -2.30981094452144E+00 Eh
+   Predicted gain in energy  =      -1.06963065404002E-01 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.284808181234E+00     4.0519E-02     4.0121E-02
-    2        -2.298432846999E+00     7.1452E-03     7.1452E-03    -1.3625E-02
-    3        -2.298886722456E+00     1.0034E-03     1.0034E-03    -4.5388E-04
-    4        -2.298895003677E+00     1.4751E-04     1.4751E-04    -8.2812E-06
-    5        -2.298895178707E+00     2.5870E-05     2.5870E-05    -1.7503E-07
+    1        -2.309969839266E+00     3.4375E-03     3.4375E-03
+    2        -2.310053135061E+00     2.9491E-04     2.9491E-04    -8.3296E-05
+    3        -2.310053742618E+00     2.9615E-05     2.9615E-05    -6.0756E-07
+    4        -2.310053748868E+00     3.3033E-06     3.3033E-06    -6.2491E-09
+    5        -2.310053748947E+00     4.1270E-07     4.1270E-07    -7.9943E-11
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -216,10 +226,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.29889517870742E+00  Eh
-     Estimated bandgap           =   3.9175E-01  Eh
-     RMS occupancy error         =   9.5251E-11
-     [H,K] commutator            =   2.5870E-05
+     Total energy                =  -2.31005374894745E+00  Eh
+     Estimated bandgap           =   5.3671E-01  Eh
+     RMS occupancy error         =   1.0097E-16
+     [H,K] commutator            =   4.1270E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -235,24 +245,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  6.1942E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  2.6874E-04 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.32198901502826E+00 Eh
-   Predicted gain in energy  =      -2.30938363208395E-02 Eh
+   Predicted total energy    =      -2.32830538712957E+00 Eh
+   Predicted gain in energy  =      -1.82516381821163E-02 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.322091661006E+00     8.9335E-03     8.9335E-03
-    2        -2.322715618885E+00     1.1848E-03     1.1848E-03    -6.2396E-04
-    3        -2.322726192525E+00     1.6145E-04     1.6145E-04    -1.0574E-05
-    4        -2.322726380794E+00     2.3523E-05     2.3523E-05    -1.8827E-07
-    5        -2.322726384906E+00     3.5030E-06     3.5030E-06    -4.1126E-09
+    1        -2.328352011956E+00     2.2739E-03     2.2739E-03
+    2        -2.328389512769E+00     2.0752E-04     2.0752E-04    -3.7501E-05
+    3        -2.328389824147E+00     2.2341E-05     2.2341E-05    -3.1138E-07
+    4        -2.328389827829E+00     2.6480E-06     2.6480E-06    -3.6812E-09
+    5        -2.328389827882E+00     3.6825E-07     3.6825E-07    -5.3773E-11
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -260,10 +270,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.32272638490638E+00  Eh
-     Estimated bandgap           =   4.0027E-01  Eh
-     RMS occupancy error         =   2.3524E-14
-     [H,K] commutator            =   3.5030E-06
+     Total energy                =  -2.32838982788247E+00  Eh
+     Estimated bandgap           =   5.1266E-01  Eh
+     RMS occupancy error         =   1.0229E-16
+     [H,K] commutator            =   3.6825E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -279,24 +289,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  3.0503E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  1.2606E-04 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33013147517090E+00 Eh
-   Predicted gain in energy  =      -7.40509026451219E-03 Eh
+   Predicted total energy    =      -2.33272610624975E+00 Eh
+   Predicted gain in energy  =      -4.33627836727890E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.330175721037E+00     2.3830E-03     2.3830E-03
-    2        -2.330221373619E+00     3.4284E-04     3.4284E-04    -4.5653E-05
-    3        -2.330222241853E+00     4.6803E-05     4.6803E-05    -8.6823E-07
-    4        -2.330222257950E+00     6.9148E-06     6.9148E-06    -1.6097E-08
-    5        -2.330222258290E+00     1.0045E-06     1.0045E-06    -3.3977E-10
+    1        -2.332716345190E+00     1.5075E-03     1.5075E-03
+    2        -2.332733116829E+00     1.3907E-04     1.3907E-04    -1.6772E-05
+    3        -2.332733260150E+00     1.5517E-05     1.5517E-05    -1.4332E-07
+    4        -2.332733261976E+00     1.8971E-06     1.8971E-06    -1.8257E-09
+    5        -2.332733262004E+00     2.9193E-07     2.9193E-07    -2.8800E-11
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -304,14 +314,14 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33022225828966E+00  Eh
-     Estimated bandgap           =   3.9846E-01  Eh
-     RMS occupancy error         =   3.8094E-16
-     [H,K] commutator            =   1.0045E-06
+     Total energy                =  -2.33273326200430E+00  Eh
+     Estimated bandgap           =   4.9294E-01  Eh
+     RMS occupancy error         =   1.0479E-16
+     [H,K] commutator            =   2.9193E-07
      k-point number  1
-     Occupancy bounds            = [  0.000:  1.000]
+     Occupancy bounds            = [ -0.000:  1.000]
      k-point number  2
-     Occupancy bounds            = [  0.000:  1.000]
+     Occupancy bounds            = [ -0.000:  1.000]
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -323,24 +333,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  1.8178E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  6.3652E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33295123752675E+00 Eh
-   Predicted gain in energy  =      -2.72897923708548E-03 Eh
+   Predicted total energy    =      -2.33377844258736E+00 Eh
+   Predicted gain in energy  =      -1.04518058305425E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.332961562374E+00     1.1896E-03     1.1896E-03
-    2        -2.332972831039E+00     1.7152E-04     1.7152E-04    -1.1269E-05
-    3        -2.332973050642E+00     2.4586E-05     2.4586E-05    -2.1960E-07
-    4        -2.332973055152E+00     3.5003E-06     3.5003E-06    -4.5103E-09
-    5        -2.332973055235E+00     4.9600E-07     4.9600E-07    -8.3396E-11
+    1        -2.333776676142E+00     6.8056E-04     6.8056E-04
+    2        -2.333780075000E+00     5.7293E-05     5.7293E-05    -3.3989E-06
+    3        -2.333780099194E+00     6.0100E-06     6.0100E-06    -2.4194E-08
+    4        -2.333780099471E+00     7.2752E-07     7.2752E-07    -2.7702E-10
+    5        -2.333780099475E+00     1.4558E-07     1.4558E-07    -4.4542E-12
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -348,10 +358,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33297305523549E+00  Eh
-     Estimated bandgap           =   3.9538E-01  Eh
-     RMS occupancy error         =   1.0321E-16
-     [H,K] commutator            =   4.9600E-07
+     Total energy                =  -2.33378009947513E+00  Eh
+     Estimated bandgap           =   4.7836E-01  Eh
+     RMS occupancy error         =   1.0118E-16
+     [H,K] commutator            =   1.4558E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -367,24 +377,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  1.0138E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  3.3571E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33372308081596E+00 Eh
-   Predicted gain in energy  =      -7.50025580468883E-04 Eh
+   Predicted total energy    =      -2.33400932730287E+00 Eh
+   Predicted gain in energy  =      -2.29227827738043E-04 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.333723077347E+00     3.4401E-04     3.4401E-04
-    2        -2.333724013870E+00     4.2927E-05     4.2927E-05    -9.3652E-07
-    3        -2.333724028135E+00     5.9629E-06     5.9629E-06    -1.4264E-08
-    4        -2.333724028378E+00     8.4593E-07     8.4593E-07    -2.4356E-10
-    5        -2.333724028383E+00     1.6221E-07     1.6221E-07    -4.9605E-12
+    1        -2.334009327995E+00     1.4735E-04     1.4735E-04
+    2        -2.334009495216E+00     1.7003E-05     1.7003E-05    -1.6722E-07
+    3        -2.334009497495E+00     1.9573E-06     1.9573E-06    -2.2792E-09
+    4        -2.334009497525E+00     3.1358E-07     3.1358E-07    -2.9794E-11
+    5        -2.334009497525E+00     1.7442E-07     1.7442E-07    -4.7073E-14
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -392,12 +402,12 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33372402838324E+00  Eh
-     Estimated bandgap           =   3.9471E-01  Eh
-     RMS occupancy error         =   1.0187E-16
-     [H,K] commutator            =   1.6221E-07
+     Total energy                =  -2.33400949752496E+00  Eh
+     Estimated bandgap           =   4.7178E-01  Eh
+     RMS occupancy error         =   1.0326E-16
+     [H,K] commutator            =   1.7442E-07
      k-point number  1
-     Occupancy bounds            = [ -0.000:  1.000]
+     Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
      Occupancy bounds            = [  0.000:  1.000]
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,24 +421,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  5.6574E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  1.9256E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33398461257961E+00 Eh
-   Predicted gain in energy  =      -2.60584196364988E-04 Eh
+   Predicted total energy    =      -2.33412909724045E+00 Eh
+   Predicted gain in energy  =      -1.19599715485030E-04 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.333984625660E+00     3.5785E-04     3.5785E-04
-    2        -2.333985647830E+00     4.4476E-05     4.4476E-05    -1.0222E-06
-    3        -2.333985663221E+00     6.0713E-06     6.0713E-06    -1.5390E-08
-    4        -2.333985663476E+00     8.4542E-07     8.4542E-07    -2.5551E-10
-    5        -2.333985663482E+00     1.2867E-07     1.2867E-07    -5.6750E-12
+    1        -2.334129069258E+00     2.4753E-04     2.4753E-04
+    2        -2.334129542922E+00     2.7661E-05     2.7661E-05    -4.7366E-07
+    3        -2.334129548985E+00     3.2240E-06     3.2240E-06    -6.0632E-09
+    4        -2.334129549069E+00     5.8940E-07     5.8940E-07    -8.3518E-11
+    5        -2.334129549070E+00     2.3249E-07     2.3249E-07    -1.1311E-12
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -436,10 +446,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33398566348186E+00  Eh
-     Estimated bandgap           =   3.9313E-01  Eh
-     RMS occupancy error         =   1.0233E-16
-     [H,K] commutator            =   1.2867E-07
+     Total energy                =  -2.33412954906992E+00  Eh
+     Estimated bandgap           =   4.5958E-01  Eh
+     RMS occupancy error         =   1.0817E-16
+     [H,K] commutator            =   2.3249E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -455,24 +465,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  3.3200E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  1.2135E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33407744421894E+00 Eh
-   Predicted gain in energy  =      -9.17807370779400E-05 Eh
+   Predicted total energy    =      -2.33417108835558E+00 Eh
+   Predicted gain in energy  =      -4.15392856614183E-05 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.334077448913E+00     2.4008E-04     2.4008E-04
-    2        -2.334077908465E+00     3.0201E-05     3.0201E-05    -4.5955E-07
-    3        -2.334077915572E+00     4.0680E-06     4.0680E-06    -7.1071E-09
-    4        -2.334077915691E+00     5.5070E-07     5.5070E-07    -1.1957E-10
-    5        -2.334077915694E+00     1.3469E-07     1.3469E-07    -2.7600E-12
+    1        -2.334171086544E+00     1.5266E-04     1.5266E-04
+    2        -2.334171265589E+00     1.5582E-05     1.5582E-05    -1.7905E-07
+    3        -2.334171267534E+00     1.8525E-06     1.8525E-06    -1.9447E-09
+    4        -2.334171267564E+00     6.8571E-07     6.8571E-07    -2.9829E-11
+    5        -2.334171267566E+00     2.5875E-07     2.5875E-07    -1.8505E-12
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -480,10 +490,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33407791569398E+00  Eh
-     Estimated bandgap           =   3.9102E-01  Eh
-     RMS occupancy error         =   1.0721E-16
-     [H,K] commutator            =   1.3469E-07
+     Total energy                =  -2.33417126756552E+00  Eh
+     Estimated bandgap           =   4.4955E-01  Eh
+     RMS occupancy error         =   1.0317E-16
+     [H,K] commutator            =   2.5875E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -499,24 +509,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  1.7437E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  6.2578E-06 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33409555199114E+00 Eh
-   Predicted gain in energy  =      -1.76362971506805E-05 Eh
+   Predicted total energy    =      -2.33418145440594E+00 Eh
+   Predicted gain in energy  =      -1.01868404125405E-05 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.334095549469E+00     7.6759E-05     7.6759E-05
-    2        -2.334095595080E+00     9.4426E-06     9.4426E-06    -4.5610E-08
-    3        -2.334095595759E+00     1.2952E-06     1.2952E-06    -6.7949E-10
-    4        -2.334095595770E+00     2.2750E-07     2.2750E-07    -1.1237E-11
-    5        -2.334095595771E+00     1.0478E-07     1.0478E-07    -1.5632E-13
+    1        -2.334181454804E+00     5.8462E-05     5.8462E-05
+    2        -2.334181480891E+00     5.6789E-06     5.6789E-06    -2.6087E-08
+    3        -2.334181481154E+00     7.1994E-07     7.1994E-07    -2.6282E-10
+    4        -2.334181481158E+00     7.4621E-07     7.4621E-07    -3.8547E-12
+    5        -2.334181481158E+00     7.4014E-07     7.4014E-07    -6.5281E-14
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -524,10 +534,10 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33409559577054E+00  Eh
-     Estimated bandgap           =   3.8985E-01  Eh
-     RMS occupancy error         =   1.0557E-16
-     [H,K] commutator            =   1.0478E-07
+     Total energy                =  -2.33418148115783E+00  Eh
+     Estimated bandgap           =   4.4255E-01  Eh
+     RMS occupancy error         =   1.0041E-16
+     [H,K] commutator            =   7.4014E-07
      k-point number  1
      Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
@@ -543,24 +553,24 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  7.2955E-06 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  2.8960E-06 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -2.33409927907724E+00 Eh
-   Predicted gain in energy  =      -3.68330670186268E-06 Eh
+   Predicted total energy    =      -2.33418345167617E+00 Eh
+   Predicted gain in energy  =      -1.97051833694672E-06 Eh
   ========================================================================
 
 Writing NGWFs to file "H0.tightbox_ngwfs"....  done
 
 >>> Optimising kernel for current NGWFs:
    iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.334099279179E+00     2.4862E-05     2.4862E-05
-    2        -2.334099283815E+00     2.9148E-06     2.9148E-06    -4.6359E-09
-    3        -2.334099283878E+00     4.2713E-07     4.2713E-07    -6.3797E-11
-    4        -2.334099283879E+00     2.1815E-07     2.1815E-07    -4.4897E-13
-    5        -2.334099283879E+00     1.4824E-07     1.4824E-07     7.5495E-15
+    1        -2.334183452070E+00     7.5921E-06     7.5921E-06
+    2        -2.334183452574E+00     1.5916E-06     1.5916E-06    -5.0426E-10
+    3        -2.334183452590E+00     4.4109E-07     4.4109E-07    -1.5182E-11
+    4        -2.334183452590E+00     2.5090E-07     2.5090E-07    -2.8422E-13
+    5        -2.334183452590E+00     1.8004E-07     1.8004E-07     5.5955E-14
 Finished density kernel iterations (   5)
 
 Writing density kernel to file "H0.dkn" ... done
@@ -568,12 +578,12 @@ Writing density kernel to file "H0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33409928387880E+00  Eh
-     Estimated bandgap           =   3.8912E-01  Eh
-     RMS occupancy error         =   1.0499E-16
-     [H,K] commutator            =   1.4824E-07
+     Total energy                =  -2.33418345258974E+00  Eh
+     Estimated bandgap           =   4.3866E-01  Eh
+     RMS occupancy error         =   1.0177E-16
+     [H,K] commutator            =   1.8004E-07
      k-point number  1
-     Occupancy bounds            = [ -0.000:  1.000]
+     Occupancy bounds            = [  0.000:  1.000]
      k-point number  2
      Occupancy bounds            = [  0.000:  1.000]
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -585,207 +595,118 @@ Writing density kernel to file "H0.dkn" ... done
 ########################### NGWF CG iteration  010 #############################
 ################################################################################
 
->>> Checking for convergence of NGWFs:   NOT CONVERGED
-  ========================================================================
-         NGWF RMS gradient =  4.9623E-06 >  2.0000E-06  | above tolerance
-  ========================================================================
-
->>> Improving NGWFs using line search:
-  ========================================================================
-   Predicted total energy    =      -2.33410137577227E+00 Eh
-   Predicted gain in energy  =      -2.09189346778160E-06 Eh
-  ========================================================================
-
-Writing NGWFs to file "H0.tightbox_ngwfs"....  done
-
->>> Optimising kernel for current NGWFs:
-   iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.334101376548E+00     3.2891E-05     3.2891E-05
-    2        -2.334101384621E+00     3.7266E-06     3.7266E-06    -8.0729E-09
-    3        -2.334101384724E+00     6.6537E-07     6.6537E-07    -1.0268E-10
-    4        -2.334101384725E+00     3.3906E-07     3.3906E-07    -1.5112E-12
-    5        -2.334101384725E+00     2.2008E-07     2.2008E-07    -4.9294E-14
-Finished density kernel iterations (   5)
-
-Writing density kernel to file "H0.dkn" ... done
-
-
->>> Density kernel optimised for the current NGWF basis:
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33410138472514E+00  Eh
-     Estimated bandgap           =   3.8787E-01  Eh
-     RMS occupancy error         =   1.0095E-16
-     [H,K] commutator            =   2.2008E-07
-     k-point number  1
-     Occupancy bounds            = [  0.000:  1.000]
-     k-point number  2
-     Occupancy bounds            = [  0.000:  1.000]
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-################################################################################
-########################### NGWF CG iteration  011 #############################
-################################################################################
-
->>> Checking for convergence of NGWFs:   NOT CONVERGED
-  ========================================================================
-         NGWF RMS gradient =  3.0061E-06 >  2.0000E-06  | above tolerance
-  ========================================================================
-
->>> Improving NGWFs using line search:
-  ========================================================================
-   Predicted total energy    =      -2.33410214755324E+00 Eh
-   Predicted gain in energy  =      -7.62828102462976E-07 Eh
-  ========================================================================
-
-Writing NGWFs to file "H0.tightbox_ngwfs"....  done
-
->>> Optimising kernel for current NGWFs:
-   iter  |      energy (Eh)       | rms gradient |  commutator  |   dE (Eh)
-    1        -2.334102147645E+00     2.0141E-05     2.0141E-05
-    2        -2.334102150633E+00     2.2994E-06     2.2994E-06    -2.9871E-09
-    3        -2.334102150669E+00     5.5822E-07     5.5822E-07    -3.6824E-11
-    4        -2.334102150670E+00     2.8709E-07     2.8709E-07    -1.0481E-12
-    5        -2.334102150670E+00     1.9565E-07     1.9565E-07     2.1760E-14
-Finished density kernel iterations (   5)
-
-Writing density kernel to file "H0.dkn" ... done
-
-
->>> Density kernel optimised for the current NGWF basis:
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total energy                =  -2.33410215067038E+00  Eh
-     Estimated bandgap           =   3.8668E-01  Eh
-     RMS occupancy error         =   1.0356E-16
-     [H,K] commutator            =   1.9565E-07
-     k-point number  1
-     Occupancy bounds            = [  0.000:  1.000]
-     k-point number  2
-     Occupancy bounds            = [ -0.000:  1.000]
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-################################################################################
-########################### NGWF CG iteration  012 #############################
-################################################################################
-
 >>> Checking for convergence of NGWFs: 
            ........................................................
            |         *** NGWF optimisation converged ***          |
-           | RMS NGWF gradient =    0.00000162269335              |
+           | RMS NGWF gradient =    0.00000180844032              |
            | Criteria satisfied:                                  |
            | -> RMS NGWF gradient lower than set threshold.       |
            ========================================================
 
 ================================================================================
            ---------------- ENERGY COMPONENTS (Eh) ----------------
-           | Kinetic                    :        2.22787800627307 |
-           | Pseudopotential (local)    :       -3.37776581591613 |
+           | Kinetic                    :        2.22703620357971 |
+           | Pseudopotential (local)    :       -3.37672695194974 |
            | Pseudo (non-coul chg cor)  :        0.00000000000000
-           | Pseudopotential (non-local):       -0.33817779634790 |
-           | Hartree                    :        0.94365047749455 |
-           | Exchange-correlation       :       -1.37961713599631 |
+           | Pseudopotential (non-local):       -0.33821768797484 |
+           | Hartree                    :        0.94309910882253 |
+           | Exchange-correlation       :       -1.37930423888975 |
            | Ewald                      :       -0.41006988617765 |
-           | Total                      :       -2.33410215067038 |
+           | Total                      :       -2.33418345258974 |
            --------------------------------------------------------
-           Integrated density           :        3.99999999999999
+           Integrated density           :        4.00000000000000
 ================================================================================
 
 
                         <<<<< CALCULATION SUMMARY >>>>>                         
 |ITER|    RMS GRADIENT   |     TOTAL ENERGY    |   step   |     Epredicted              
-   0     0.00058240606280     -2.20232218352655  11.573520     -2.28888389462986        
-   1     0.00061941696593     -2.29889517870742   2.983929     -2.32198901502826        
-   2     0.00030503280979     -2.32272638490638   3.482160     -2.33013147517090        
-   3     0.00018177915315     -2.33022225828966   3.674650     -2.33295123752675        
-   4     0.00010138359590     -2.33297305523549   3.309269     -2.33372308081596        
-   5     0.00005657401457     -2.33372402838324   3.688144     -2.33398461257961        
-   6     0.00003320018007     -2.33398566348186   3.762015     -2.33407744421894        
-   7     0.00001743730158     -2.33407791569398   2.617491     -2.33409555199114        
-   8     0.00000729548035     -2.33409559577054   3.138495     -2.33409927907724        
-   9     0.00000496234090     -2.33409928387880   3.844820     -2.33410137577227        
-  10     0.00000300611446     -2.33410138472514   3.807605     -2.33410214755324        
-  11     0.00000162269335     -2.33410215067038  <-- CG                                 
+   0     0.00056977958066     -2.20284787911744   7.987229     -2.30981094452144        
+   1     0.00026873869381     -2.31005374894745   6.205811     -2.32830538712957        
+   2     0.00012606247485     -2.32838982788247   6.567641     -2.33272610624975        
+   3     0.00006365160594     -2.33273326200430   6.254717     -2.33377844258736        
+   4     0.00003357084544     -2.33378009947513   4.930816     -2.33400932730287        
+   5     0.00001925592378     -2.33400949752496   7.814510     -2.33412909724045        
+   6     0.00001213514776     -2.33412954906992   6.817696     -2.33417108835558        
+   7     0.00000625784564     -2.33417126756552   6.285285     -2.33418145440594        
+   8     0.00000289595210     -2.33418148115783   5.696050     -2.33418345167617        
+   9     0.00000180844032     -2.33418345258974  <-- CG                                 
 
 ------------------------------ TIMING INFORMATION ------------------------------
-AVERAGE TIME:      43.015s on      1 proc(s)                                    
-TOTAL TIME:        43.015s on      1 proc(s)                                    
+AVERAGE TIME:      73.282s on      1 proc(s)                                    
+TOTAL TIME:        73.282s on      1 proc(s)                                    
 ==================== AVERAGE TIMINGS FROM ALL PROCS (CUMULATIVE) =====================
 || TAG                                         #calls     cpu time   %total  Gflops ||
 || onetep.F90 final imbalance                 :     1        0.00s   0.000%  ------ ||
 || onetep.F90 main loop imbalance             :     1        0.00s   0.000%  ------ ||
-|| hash_table_free                            :    24        0.00s   0.000%  ------ ||
-|| sparse_spam3toblacs_complex_slow           :    48        0.00s   0.000%  ------ ||
-|| linalg_dgemv                               :    18        0.00s   0.001%  ------ ||
-|| sparse_expand                              :    48        0.00s   0.001%  ------ ||
-|| sparse_set_to_garbage                      :   284        0.00s   0.001%  ------ ||
+|| hash_table_free                            :    20        0.00s   0.000%  ------ ||
+|| sparse_spam3toblacs_complex_slow           :    40        0.00s   0.000%  ------ ||
+|| linalg_dgemv                               :    18        0.00s   0.000%  ------ ||
+|| sparse_expand                              :    40        0.00s   0.001%  ------ ||
+|| sparse_set_to_garbage                      :   236        0.00s   0.001%  ------ ||
+|| density_fftbox_interp_mult_imbal           :   816        0.00s   0.001%  ------ ||
 || sparse_init                                :     1        0.00s   0.001%  ------ ||
-|| density_fftbox_interp_mult_imbal           :   904        0.00s   0.001%  ------ ||
-|| ewald_calculate_energy                     :     1        0.00s   0.002%  ------ ||
+|| ewald_calculate_energy                     :     1        0.00s   0.001%  ------ ||
+|| palser_mano_kernel_optimise_spam3_embed    :     2        0.00s   0.002%  ------ ||
+|| pseudopotentials_nonlocal_mat              :    20        0.00s   0.004%  ------ ||
 || pseudo_make_structure_factor               :     1        0.00s   0.006%  ------ ||
-|| pseudopotentials_nonlocal_mat              :    24        0.00s   0.008%  ------ ||
-|| pseudopotentials_local_on_grid             :     1        0.01s   0.013%  ------ ||
-|| function_ops_brappd_ketppd_spam3           :    48        0.01s   0.019%  ------ ||
-|| sparse_transpose                           :   806        0.01s   0.020%  ------ ||
-|| basis_extract_function_from_box            :   200        0.01s   0.029%  ------ ||
-|| sparse_trace                               :  3110        0.02s   0.052%  ------ ||
-|| internal_gradient_norm                     :    55        0.04s   0.084%  ------ ||
-|| projectors_init_fftbox_recip               :    72        0.04s   0.087%  ------ ||
-|| sparse_product                             :  4624        0.06s   0.136%  ------ ||
-|| integrals_locpot_mat_els_batch             :   112        0.06s   0.142%  ------ ||
-|| ngwf_gradient_kinetic                      :    24        0.07s   0.160%  ------ ||
-|| projectors_func_ovlp_box_spam3             :    48        0.07s   0.166%  ------ ||
-|| projectors_gradient_batch_cpu              :    24        0.08s   0.181%  ------ ||
-|| ngwf_gradient_build_batch_nl               :    24        0.08s   0.182%  ------ ||
-|| cell_grid_extract_box_real                 :   544        0.08s   0.183%  ------ ||
-|| integrals_kinetic_spam3                    :    48        0.08s   0.193%  ------ ||
-|| basis_dot_function_with_box                :  3040        0.09s   0.200%  ------ ||
-|| kernel_fix                                 :    55        0.11s   0.245%  ------ ||
-|| hamiltonian_energy_components              :     1        0.16s   0.364%  ------ ||
-|| basis_copy_function_to_box                 :  1632        0.16s   0.374%  ------ ||
-|| density_batch_row_sums                     :   226        0.17s   0.387%  ------ ||
-|| basis_add_function_to_box                  :  5152        0.23s   0.543%  ------ ||
-|| ngwf_gradient_extract_and_shave            :    24        0.29s   0.667%  ------ ||
-|| hartree_on_grid_single                     :   113        0.31s   0.717%  ------ ||
-|| cell_grid_deposit_box_real                 :   904        0.40s   0.931%  ------ ||
-|| density_fftbox_deposit_to_cell             :   904        0.40s   0.941%  ------ ||
-|| ngwf_gradient_local                        :    24        0.47s   1.091%  ------ ||
-|| ngwf_gradient_coeffs                       :    12        0.59s   1.365%  ------ ||
-|| ngwf_gradient_build_batch                  :    24        0.62s   1.453%  ------ ||
-|| restart_kernel_write                       :    11        0.65s   1.505%  ------ ||
-|| restart_kernel_read                        :     1        0.82s   1.908%  ------ ||
-|| fourier_apply_cell_forward                 :   678        0.84s   1.944%   3.031 ||
-|| fourier_filter                             :   640        0.91s   2.108%  ------ ||
-|| restart_ngwfs_tightbox_input               :     1        0.92s   2.144%  ------ ||
-|| fourier_apply_cell_backward                :   679        0.93s   2.169%   2.720 ||
-|| ngwf_gradient_batch                        :    24        1.15s   2.684%  ------ ||
-|| kernel_purify                              :   191        1.32s   3.060%  ------ ||
-|| restart_ngwfs_tightbox_output              :    11        1.68s   3.916%  ------ ||
-|| potential_apply_to_ngwf_batch              :   112        1.70s   3.960%  ------ ||
-|| integrals_locpot_dbl_grid                  :   112        1.78s   4.137%  ------ ||
-|| ngwf_gradient_lnv                          :    12        1.84s   4.272%  ------ ||
-|| fourier_apply_box_cpu                      :  7536        2.99s   6.944%   8.593 ||
-|| xc_energy_potential                        :   113        3.42s   7.962%  ------ ||
-|| fourier_interpolate                        :  2448        3.45s   8.014%  ------ ||
-|| density_fftbox_interpolate_multiply        :   904        3.81s   8.867%  ------ ||
-|| density_batch_interp_deposit               :   226        4.30s  10.005%  ------ ||
-|| density_on_dbl_grid                        :   226        4.75s  11.044%  ------ ||
-|| symmetry_impose_density                    :   113        5.97s  13.885%  ------ ||
-|| hamiltonian_lhxc_calculate                 :   112       15.11s  35.123%  ------ ||
-|| energy_and_force_init_cell                 :     1       16.92s  39.332%  ------ ||
-|| lnv_denskernel_optimise_cg                 :    11       17.04s  39.605%  ------ ||
-|| ngwf_cg_optimise                           :     1       23.66s  54.993%  ------ ||
-|| energy_and_forces                          :     1       25.48s  59.228%  ------ ||
-|| total_time                                 :     1       43.01s 100.000%  ------ ||
+|| projectors_create_real                     :     2        0.00s   0.007%  ------ ||
+|| sparse_transpose                           :   722        0.01s   0.011%  ------ ||
+|| pseudopotentials_local_on_grid             :     1        0.01s   0.015%  ------ ||
+|| basis_extract_function_from_box            :   168        0.02s   0.024%  ------ ||
+|| sparse_trace                               :  2570        0.02s   0.025%  ------ ||
+|| function_ops_brappd_ketppd_spam3           :    40        0.02s   0.029%  ------ ||
+|| internal_gradient_norm                     :    50        0.03s   0.034%  ------ ||
+|| sparse_product                             :  4022        0.05s   0.070%  ------ ||
+|| projectors_init_fftbox_recip               :    62        0.06s   0.085%  ------ ||
+|| density_init_guess_real                    :     1        0.08s   0.108%  ------ ||
+|| ngwf_gradient_coeffs                       :    10        0.08s   0.112%  ------ ||
+|| integrals_locpot_mat_els_batch             :   102        0.11s   0.148%  ------ ||
+|| projectors_gradient_batch_cpu              :    20        0.11s   0.157%  ------ ||
+|| ngwf_gradient_build_batch_nl               :    20        0.11s   0.157%  ------ ||
+|| cell_grid_extract_box_real                 :   488        0.13s   0.180%  ------ ||
+|| projectors_func_ovlp_box_spam3             :    40        0.13s   0.183%  ------ ||
+|| kernel_fix                                 :    50        0.14s   0.192%  ------ ||
+|| ngwf_gradient_kinetic                      :    20        0.14s   0.198%  ------ ||
+|| integrals_kinetic_spam3                    :    40        0.16s   0.214%  ------ ||
+|| basis_dot_function_with_box                :  2672        0.17s   0.231%  ------ ||
+|| kernel_purify                              :   171        0.25s   0.339%  ------ ||
+|| basis_copy_function_to_box                 :  1456        0.28s   0.378%  ------ ||
+|| hamiltonian_energy_components              :     1        0.28s   0.388%  ------ ||
+|| density_batch_row_sums                     :   204        0.29s   0.401%  ------ ||
+|| ngwf_gradient_extract_and_shave            :    20        0.43s   0.586%  ------ ||
+|| basis_add_function_to_box                  :  4544        0.43s   0.592%  ------ ||
+|| hartree_on_grid_single                     :   103        0.63s   0.860%  ------ ||
+|| cell_grid_deposit_box_real                 :   820        0.68s   0.923%  ------ ||
+|| density_fftbox_deposit_to_cell             :   816        0.68s   0.927%  ------ ||
+|| ngwf_gradient_local                        :    20        0.98s   1.335%  ------ ||
+|| ngwf_gradient_build_batch                  :    20        1.25s   1.712%  ------ ||
+|| fourier_apply_cell_forward                 :   617        1.60s   2.180%   2.836 ||
+|| fourier_filter                             :   568        1.83s   2.502%  ------ ||
+|| fourier_apply_cell_backward                :   618        1.95s   2.656%   2.331 ||
+|| ngwf_gradient_batch                        :    20        2.08s   2.836%  ------ ||
+|| ngwf_gradient_lnv                          :    10        2.31s   3.146%  ------ ||
+|| potential_apply_to_ngwf_batch              :   102        3.62s   4.945%  ------ ||
+|| integrals_locpot_dbl_grid                  :   102        3.74s   5.103%  ------ ||
+|| restart_ngwfs_tightbox_output              :     9        5.22s   7.125%  ------ ||
+|| xc_energy_potential                        :   103        6.09s   8.309%  ------ ||
+|| fourier_apply_box_cpu                      :  6664        6.84s   9.331%   6.631 ||
+|| fourier_interpolate                        :  2200        7.88s  10.760%  ------ ||
+|| density_fftbox_interpolate_multiply        :   816        8.39s  11.451%  ------ ||
+|| density_batch_interp_deposit               :   204        9.20s  12.561%  ------ ||
+|| density_on_dbl_grid                        :   204        9.95s  13.584%  ------ ||
+|| restart_kernel_write                       :    11        9.97s  13.601%  ------ ||
+|| symmetry_impose_density                    :   102       10.70s  14.598%  ------ ||
+|| energy_and_force_init_cell                 :     1       20.06s  27.371%  ------ ||
+|| hamiltonian_lhxc_calculate                 :   101       27.99s  38.195%  ------ ||
+|| lnv_denskernel_optimise_cg                 :    10       31.30s  42.706%  ------ ||
+|| ngwf_cg_optimise                           :     1       42.73s  58.306%  ------ ||
+|| energy_and_forces                          :     1       52.74s  71.974%  ------ ||
+|| total_time                                 :     1       73.28s 100.000%  ------ ||
 ======================================================================================
 Overhead of generating timer report: 
 - 0 ms averaging over threads,
 - 0 ms ensuring consistency across MPI ranks,
-- 2 ms printing in order.
+- 5 ms printing in order.
 
-Job completed: 18-01-2026 03:18 (-0000)
+Job completed: 06-02-2026 05:14 (-0000)
 

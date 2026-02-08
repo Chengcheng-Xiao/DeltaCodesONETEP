@@ -38,7 +38,7 @@ Reading geometry and species blocks from file "Ti.dat" ...
 ---------------------------------- INPUT FILE ----------------------------------
 --------------------------------------------------------------------------------
 
-cutoff_energy : 1280 eV                                                         
+cutoff_energy = 1780 eV                                                         
 do_properties : F                                                               
 edft : T                                                                        
 edft_maxit : 4                                                                  
@@ -47,7 +47,8 @@ eigensolver_abstol : -1
 eigensolver_orfac : -1                                                          
 extend_ngwf : T T T                                                             
 forces_output_detail : verbose                                                  
-full_rand_ngwf : T                                                              
+full_rand_ngwf : F                                                              
+ngwfs_init_recip : T                                                            
 kpoint_grid_shift : 0 0 1                                                       
 kpoint_grid_size : 33 33 18                                                     
 kpoint_method : PW                                                              
@@ -58,8 +59,6 @@ paw : F
 permit_unusual_ngwf_count : T                                                   
 pseudo_path : .                                                                 
 rand_seed_ngwf_dynamic : F                                                      
-read_denskern : T                                                               
-read_tightbox_ngwfs : T                                                         
 spin : 0                                                                        
 spin_polarized : F                                                              
 task : SinglePoint                                                              
@@ -113,31 +112,31 @@ Totals:      2        26        20
 --------------------------------------------------------------------------------
 
 =============================== PSINC grid sizes ===============================
-                      Simulation cell:   15 x  15 x  25
-                              FFT-box:   15 x  15 x  25
-                                  PPD:   15 x  15 x  25
-Grid space d1=  0.372413180899a0 (KE cutoff=  54.77141Eh =1490.40588eV)
-Grid space d2=  0.372413181706a0 (KE cutoff=  54.77141Eh =1490.40587eV)
-Grid space d3=  0.353963723924a0 (KE cutoff=  60.62985Eh =1649.82215eV)
+                      Simulation cell:   21 x  21 x  27
+                              FFT-box:   21 x  21 x  27
+                                  PPD:   21 x  21 x  27
+Grid space d1=  0.266009414928a0 (KE cutoff= 107.35196Eh =2921.19552eV)
+Grid space d2=  0.266009415504a0 (KE cutoff= 107.35196Eh =2921.19551eV)
+Grid space d3=  0.327744188819a0 (KE cutoff=  70.71866Eh =1924.35256eV)
 ================================================================================
 
 ********************* Fourier parallelisation information **********************
-       Coarse grid (whole simulation cell) dimensions:     15    15    25
-          Real-space ('12') slabs/proc (min max mean):     25    25    25
-         Recip-space ('23') slabs/proc (min max mean):      8     8     8
+       Coarse grid (whole simulation cell) dimensions:     21    21    27
+          Real-space ('12') slabs/proc (min max mean):     27    27    27
+         Recip-space ('23') slabs/proc (min max mean):     11    11    11
 ********************************************************************************
 
 ********************* Fourier parallelisation information **********************
-       Double grid (whole simulation cell) dimensions:     30    30    50
-          Real-space ('12') slabs/proc (min max mean):     50    50    50
-         Recip-space ('23') slabs/proc (min max mean):     16    16    16
+       Double grid (whole simulation cell) dimensions:     42    42    54
+          Real-space ('12') slabs/proc (min max mean):     54    54    54
+         Recip-space ('23') slabs/proc (min max mean):     22    22    22
 ********************************************************************************
 
 Atom SCF Calculation for Ti : Z (AE atom) =  22 : Z (PS atom) =  12
 Config String: 3s2.0 3p6.0 3d2.0 4s2.0 4p0.0
 Orbitals (num,occ):  5     2.00 6.00 2.00 2.00 0.00
 Orbitals   (num,l):  5        0    1    2    0    1
-Atom SCF converged after  30 iterations to a total energy of    -57.95301456
+Atom SCF converged after  30 iterations to a total energy of    -57.95304122
  
 ============================= Symmetry information =============================
     Number of symmetry operations =          24
@@ -172,10 +171,12 @@ Basis initialisation ...
 ... done
 Sparse matrix initialisation ...
  done
+NGWF initialisation ... done
+Density renormalisation ...
+Target Charge:    24.000000000000 ; Input Charge:    22.007223657773
+Density kernel initialisation
 
-Reading NGWFs from file "Ti0.tightbox_ngwfs" ...  done
-
-Reading density kernel from file "Ti0.dkn" ... done
+Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Optimising kernel for current NGWFs:
 
@@ -183,15 +184,14 @@ Reading density kernel from file "Ti0.dkn" ... done
 Running ScaLAPACK on    1 processor(s).
 With smearing scheme: FERMIDIRAC                                                                      
 
-Reading density kernel from file "Ti0.dkn" ... done
-
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.005850895116    -116.41936327846122  -1.16E+02
-#    1                          0.000118112402    -116.42428578894571  -4.92E-03
-#    2                          0.000027490560    -116.42428776716150  -1.98E-06
-#    3                          0.000004315828    -116.42428783934888  -7.22E-08
-EDFT occupancies loop converged after    3 iterations.
+#    0                          0.055994184280    -116.12587321375487  -1.16E+02
+#    1                          0.002549705692    -116.42212654923104  -2.96E-01
+#    2                          0.000477690846    -116.42336105540132  -1.23E-03
+#    3                          0.000054751513    -116.42338452799841  -2.35E-05
+#    4                          0.000017193913    -116.42338523433210  -7.06E-07
+Finished EDFT density kernel iterations (   4)
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -199,8 +199,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16424287839349E+02  Eh
-     [H,K] commutator            =   4.3158E-06
+     Total free energy           =  -1.16423385234332E+02  Eh
+     [H,K] commutator            =   1.7194E-05
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -212,13 +212,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  2.2005E-04 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  7.6735E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16430756748746E+02 Eh
-   Predicted gain in energy  =      -6.46890939751188E-03 Eh
+   Predicted total energy    =      -1.16436038910230E+02 Eh
+   Predicted gain in energy  =      -1.26536758975107E-02 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -231,11 +231,12 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.001470515959    -116.43075675726023  -6.47E-03
-#    1                          0.000222946389    -116.43156559433582  -8.09E-04
-#    2                          0.000020429460    -116.43157056724952  -4.97E-06
-#    3                          0.000004187852    -116.43157064985439  -8.26E-08
-EDFT occupancies loop converged after    3 iterations.
+#    0                          0.001229034585    -116.43603643644408  -1.27E-02
+#    1                          0.000955361143    -116.42600505607591   1.00E-02
+#    2                          0.000155684977    -116.42614730853722  -1.42E-04
+#    3                          0.000030952933    -116.42615171403430  -4.41E-06
+#    4                          0.000007045264    -116.42615187549855  -1.61E-07
+EDFT occupancies loop converged after    4 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -243,8 +244,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16431570649854E+02  Eh
-     [H,K] commutator            =   4.1879E-06
+     Total free energy           =  -1.16426151875499E+02  Eh
+     [H,K] commutator            =   7.0453E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -256,13 +257,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  6.6346E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  9.5205E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432417291788E+02 Eh
-   Predicted gain in energy  =      -8.46641933208048E-04 Eh
+   Predicted total energy    =      -1.16427799319256E+02 Eh
+   Predicted gain in energy  =      -1.64744375753401E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -275,10 +276,12 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000269863865    -116.43241661923211  -8.46E-04
-#    1                          0.000040845747    -116.43244116058655  -2.45E-05
-#    2                          0.000001457075    -116.43244164376061  -4.83E-07
-EDFT occupancies loop converged after    2 iterations.
+#    0                          0.001006472510    -116.42782687346558  -1.67E-03
+#    1                          0.000427456077    -116.42595207471543   1.87E-03
+#    2                          0.000078264600    -116.42597880415998  -2.67E-05
+#    3                          0.000023166322    -116.42598024203750  -1.44E-06
+#    4                          0.000004505949    -116.42598032033077  -7.83E-08
+EDFT occupancies loop converged after    4 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -286,8 +289,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432441643761E+02  Eh
-     [H,K] commutator            =   1.4571E-06
+     Total free energy           =  -1.16425980320331E+02  Eh
+     [H,K] commutator            =   4.5059E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -299,13 +302,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  2.7062E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  7.8664E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432648338665E+02 Eh
-   Predicted gain in energy  =      -2.06694904008486E-04 Eh
+   Predicted total energy    =      -1.16429438976553E+02 Eh
+   Predicted gain in energy  =      -3.45865622233532E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -318,10 +321,12 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000051090080    -116.43264813128421  -2.06E-04
-#    1                          0.000020577817    -116.43259481820759   5.33E-05
-#    2                          0.000005252457    -116.43259503099830  -2.13E-07
-EDFT occupancies loop converged after    2 iterations.
+#    0                          0.000470443258    -116.42946077426919  -3.48E-03
+#    1                          0.000246041406    -116.42829584525420   1.16E-03
+#    2                          0.000055320042    -116.42830434902021  -8.50E-06
+#    3                          0.000023007053    -116.42830514297638  -7.94E-07
+#    4                          0.000005287868    -116.42830521703172  -7.41E-08
+EDFT occupancies loop converged after    4 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -329,8 +334,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432595030998E+02  Eh
-     [H,K] commutator            =   5.2525E-06
+     Total free energy           =  -1.16428305217032E+02  Eh
+     [H,K] commutator            =   5.2879E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -342,13 +347,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  2.0255E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  5.9164E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432659589218E+02 Eh
-   Predicted gain in energy  =      -6.45582199041428E-05 Eh
+   Predicted total energy    =      -1.16431480273342E+02 Eh
+   Predicted gain in energy  =      -3.17505631026904E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -361,10 +366,12 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000021922202    -116.43265956655051  -6.45E-05
-#    1                          0.000008840538    -116.43263972889271   1.98E-05
-#    2                          0.000001367757    -116.43263975153835  -2.26E-08
-EDFT occupancies loop converged after    2 iterations.
+#    0                          0.000500243174    -116.43148427712093  -3.18E-03
+#    1                          0.000150071992    -116.42947417365190   2.01E-03
+#    2                          0.000039091254    -116.42947905439661  -4.88E-06
+#    3                          0.000010394147    -116.42947934538986  -2.91E-07
+#    4                          0.000003068291    -116.42947936741128  -2.20E-08
+EDFT occupancies loop converged after    4 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -372,8 +379,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432639751538E+02  Eh
-     [H,K] commutator            =   1.3678E-06
+     Total free energy           =  -1.16429479367411E+02  Eh
+     [H,K] commutator            =   3.0683E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -385,13 +392,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  1.3036E-05 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  5.6134E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432665471976E+02 Eh
-   Predicted gain in energy  =      -2.57204372360320E-05 Eh
+   Predicted total energy    =      -1.16432857267038E+02 Eh
+   Predicted gain in energy  =      -3.37789962627255E-03 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -404,9 +411,11 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000008044493    -116.43266547167673  -2.57E-05
-#    1                          0.000003146824    -116.43266704223747  -1.57E-06
-EDFT occupancies loop converged after    1 iterations.
+#    0                          0.000253858549    -116.43285671095333  -3.38E-03
+#    1                          0.000069640374    -116.43184761629378   1.01E-03
+#    2                          0.000024080576    -116.43184865445546  -1.04E-06
+#    3                          0.000005199951    -116.43184872395530  -6.95E-08
+EDFT occupancies loop converged after    3 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -414,8 +423,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432667042237E+02  Eh
-     [H,K] commutator            =   3.1468E-06
+     Total free energy           =  -1.16431848723955E+02  Eh
+     [H,K] commutator            =   5.2000E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -427,13 +436,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  6.3326E-06 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  3.2304E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432674293260E+02 Eh
-   Predicted gain in energy  =      -7.25102277954193E-06 Eh
+   Predicted total energy    =      -1.16432498084230E+02 Eh
+   Predicted gain in energy  =      -6.49360274493915E-04 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -446,9 +455,11 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000011667286    -116.43267429333261  -7.25E-06
-#    1                          0.000004058349    -116.43267400472351   2.89E-07
-EDFT occupancies loop converged after    1 iterations.
+#    0                          0.000330415332    -116.43249808617101  -6.49E-04
+#    1                          0.000100784711    -116.43241259298827   8.55E-05
+#    2                          0.000015905696    -116.43241381789989  -1.22E-06
+#    3                          0.000005178780    -116.43241387696310  -5.91E-08
+EDFT occupancies loop converged after    3 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -456,8 +467,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432674004724E+02  Eh
-     [H,K] commutator            =   4.0583E-06
+     Total free energy           =  -1.16432413876963E+02  Eh
+     [H,K] commutator            =   5.1788E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -469,13 +480,13 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Checking for convergence of NGWFs:   NOT CONVERGED
   ========================================================================
-         NGWF RMS gradient =  2.2936E-06 >  2.0000E-06  | above tolerance
+         NGWF RMS gradient =  1.9817E-05 >  2.0000E-06  | above tolerance
   ========================================================================
 
 >>> Improving NGWFs using line search:
   ========================================================================
-   Predicted total energy    =      -1.16432674928101E+02 Eh
-   Predicted gain in energy  =      -9.23377541539594E-07 Eh
+   Predicted total energy    =      -1.16432765427427E+02 Eh
+   Predicted gain in energy  =      -3.51550463548733E-04 Eh
   ========================================================================
 
 Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
@@ -488,9 +499,10 @@ With smearing scheme: FERMIDIRAC
 
 --------------------------------------------------------------------------------
   Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
-#    0                          0.000007572260    -116.43267492807885  -9.23E-07
-#    1                          0.000002850482    -116.43267487884792   4.92E-08
-EDFT occupancies loop converged after    1 iterations.
+#    0                          0.000088935400    -116.43276541749771  -3.52E-04
+#    1                          0.000025842379    -116.43265277291172   1.13E-04
+#    2                          0.000008324001    -116.43265291381761  -1.41E-07
+EDFT occupancies loop converged after    2 iterations.
 
 
 Writing density kernel to file "Ti0.dkn" ... done
@@ -498,8 +510,8 @@ Writing density kernel to file "Ti0.dkn" ... done
 
 >>> Density kernel optimised for the current NGWF basis:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Total free energy           =  -1.16432674878848E+02  Eh
-     [H,K] commutator            =   2.8505E-06
+     Total free energy           =  -1.16432652913818E+02  Eh
+     [H,K] commutator            =   8.3240E-06
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -509,121 +521,251 @@ Writing density kernel to file "Ti0.dkn" ... done
 ########################### NGWF CG iteration  008 #############################
 ################################################################################
 
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  1.1164E-05 >  2.0000E-06  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Predicted total energy    =      -1.16432736123743E+02 Eh
+   Predicted gain in energy  =      -8.32099254068908E-05 Eh
+  ========================================================================
+
+Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC                                                                      
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000037106592    -116.43273612377605  -8.32E-05
+#    1                          0.000011829921    -116.43271643702943   1.97E-05
+#    2                          0.000004708001    -116.43271646939482  -3.24E-08
+EDFT occupancies loop converged after    2 iterations.
+
+
+Writing density kernel to file "Ti0.dkn" ... done
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -1.16432716469395E+02  Eh
+     [H,K] commutator            =   4.7080E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  009 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  5.6634E-06 >  2.0000E-06  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Predicted total energy    =      -1.16432736791313E+02 Eh
+   Predicted gain in energy  =      -2.03219177734582E-05 Eh
+  ========================================================================
+
+Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC                                                                      
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000005128635    -116.43273679163937  -2.03E-05
+#    1                          0.000002738017    -116.43273596422773   8.27E-07
+EDFT occupancies loop converged after    1 iterations.
+
+
+Writing density kernel to file "Ti0.dkn" ... done
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -1.16432735964228E+02  Eh
+     [H,K] commutator            =   2.7380E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  010 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  2.3055E-06 >  2.0000E-06  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Predicted total energy    =      -1.16432740095798E+02 Eh
+   Predicted gain in energy  =      -4.13156978140705E-06 Eh
+  ========================================================================
+
+Writing NGWFs to file "Ti0.tightbox_ngwfs"....  done
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC                                                                      
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000009099893    -116.43274009572464  -4.13E-06
+#    1                          0.000003195102    -116.43273946102188   6.35E-07
+EDFT occupancies loop converged after    1 iterations.
+
+
+Writing density kernel to file "Ti0.dkn" ... done
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -1.16432739461022E+02  Eh
+     [H,K] commutator            =   3.1951E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  011 #############################
+################################################################################
+
 >>> Checking for convergence of NGWFs: 
            ........................................................
            |         *** NGWF optimisation converged ***          |
-           | RMS NGWF gradient =    0.00000103846822              |
+           | RMS NGWF gradient =    0.00000121039417              |
            | Criteria satisfied:                                  |
            | -> RMS NGWF gradient lower than set threshold.       |
            ========================================================
 
 ================================================================================
            ---------------- ENERGY COMPONENTS (Eh) ----------------
-           | Kinetic                    :       45.13628048249374 |
-           | Pseudopotential (local)    :      -77.29090407743477 |
+           | Kinetic                    :       45.13780366989064 |
+           | Pseudopotential (local)    :      -77.29226820406201 |
            | Pseudo (non-coul chg cor)  :        0.00000000000000
-           | Pseudopotential (non-local):       -9.77923136238962 |
-           | Hartree                    :       24.46514033223089 |
-           | Exchange-correlation       :      -14.55591215356573 |
+           | Pseudopotential (non-local):       -9.78014007198306 |
+           | Hartree                    :       24.46595830846661 |
+           | Exchange-correlation       :      -14.55604515505022 |
            | Ewald                      :      -84.40741558535480 |
-           | Total                      :     -116.43204236402030 |
+           | Total                      :     -116.43210703809282 |
            |------------------------------------------------------|
-           | Entropic contribution      :       -0.00063251482761 |
-           | Total free energy          :     -116.43267487884792 |
+           | Entropic contribution      :       -0.00063242292906 |
+           | Total free energy          :     -116.43273946102188 |
            --------------------------------------------------------
-           Integrated density           :       24.00000000001291
-           Fermi level                  :        0.48171077116603
+           Integrated density           :       24.00000000001095
+           Fermi level                  :        0.48172590180074
 ================================================================================
 
 
                         <<<<< CALCULATION SUMMARY >>>>>                         
 |ITER|    RMS GRADIENT   |     TOTAL ENERGY    |   step   |     Epredicted              
-   0     0.00022004868731   -116.42428783934888   1.826954   -116.43075674874639        
-   1     0.00006634598166   -116.43157064985439   2.337738   -116.43241729178760        
-   2     0.00002706151942   -116.43244164376061   3.742323   -116.43264833866462        
-   3     0.00002025539256   -116.43259503099830   2.937938   -116.43265958921820        
-   4     0.00001303561150   -116.43263975153835   2.069901   -116.43266547197558        
-   5     0.00000633260473   -116.43266704223747   2.330313   -116.43267429326025        
-   6     0.00000229359176   -116.43267400472351   2.506825   -116.43267492810105        
-   7     0.00000103846822   -116.43267487884792  <-- CG                                 
+   0     0.00007673499865   -116.42338523433210  13.883022   -116.43603891022961        
+   1     0.00009520520220   -116.42615187549855   5.074350   -116.42779931925608        
+   2     0.00007866358419   -116.42598032033077   4.805727   -116.42943897655310        
+   3     0.00005916423872   -116.42830521703172   7.690769   -116.43148027334199        
+   4     0.00005613447200   -116.42947936741128   6.925350   -116.43285726703755        
+   5     0.00003230449936   -116.43184872395530   5.750325   -116.43249808422979        
+   6     0.00001981708248   -116.43241387696310   6.365665   -116.43276542742665        
+   7     0.00001116419720   -116.43265291381761   6.086114   -116.43273612374301        
+   8     0.00000566336418   -116.43271646939482   4.093266   -116.43273679131259        
+   9     0.00000230549536   -116.43273596422773   5.235426   -116.43274009579751        
+  10     0.00000121039417   -116.43273946102188  <-- CG                                 
 
 ------------------------------ TIMING INFORMATION ------------------------------
-AVERAGE TIME:     475.805s on      1 proc(s)                                    
-TOTAL TIME:       475.805s on      1 proc(s)                                    
+AVERAGE TIME:     238.824s on      1 proc(s)                                    
+TOTAL TIME:       238.824s on      1 proc(s)                                    
 ==================== AVERAGE TIMINGS FROM ALL PROCS (CUMULATIVE) =====================
 || TAG                                         #calls     cpu time   %total  Gflops ||
 || onetep.F90 final imbalance                 :     1        0.00s   0.000%  ------ ||
 || onetep.F90 main loop imbalance             :     1        0.00s   0.000%  ------ ||
-|| hash_table_free                            :    16        0.00s   0.000%  ------ ||
+|| hash_table_free                            :    22        0.00s   0.000%  ------ ||
 || ewald_calculate_energy                     :     1        0.00s   0.000%  ------ ||
 || sparse_init                                :     1        0.00s   0.000%  ------ ||
-|| sparse_expand                              :    48        0.00s   0.000%  ------ ||
-|| pseudo_make_structure_factor               :     1        0.00s   0.000%  ------ ||
-|| sparse_set_to_garbage                      :   282        0.00s   0.000%  ------ ||
-|| pseudopotentials_core_density              :     1        0.00s   0.000%  ------ ||
-|| pseudopotentials_local_on_grid             :     1        0.00s   0.001%  ------ ||
-|| density_fftbox_interp_mult_imbal           :  6708        0.00s   0.001%  ------ ||
-|| ngwf_gradient_coeffs                       :     8        0.01s   0.001%  ------ ||
-|| sparse_transpose                           :   306        0.01s   0.001%  ------ ||
-|| pseudopotentials_nonlocal_mat              :    16        0.01s   0.002%  ------ ||
-|| sparse_spam3toblacs_complex_slow           :   546        0.01s   0.003%  ------ ||
-|| sparse_trace                               :  2163        0.03s   0.006%  ------ ||
-|| sparse_product                             :  1254        0.04s   0.008%  ------ ||
-|| kernel_purify                              :     8        0.04s   0.008%  ------ ||
-|| linalg_dgemv                               :   151        0.04s   0.009%  ------ ||
-|| cell_grid_extract_box_real                 :  2496        0.05s   0.010%  ------ ||
-|| basis_extract_function_from_box            :  1326        0.06s   0.012%  ------ ||
-|| restart_kernel_read                        :     2        0.07s   0.016%  ------ ||
-|| hartree_on_grid_single                     :    86        0.13s   0.027%  ------ ||
-|| dense_eigensolve                           :   204        0.13s   0.028%  ------ ||
-|| edft_diag_ngwf_ham                         :   204        0.14s   0.030%  ------ ||
-|| cell_grid_deposit_box_real                 :  6708        0.15s   0.032%  ------ ||
-|| density_fftbox_deposit_to_cell             :  6708        0.17s   0.035%  ------ ||
-|| hamiltonian_energy_components              :     1        0.21s   0.043%  ------ ||
-|| ngwf_gradient_kinetic                      :    48        0.22s   0.047%  ------ ||
-|| fourier_apply_cell_forward                 :   516        0.26s   0.054%   3.641 ||
-|| projectors_init_fftbox_recip               :    96        0.27s   0.056%  ------ ||
-|| fourier_apply_cell_backward                :   518        0.32s   0.068%   2.920 ||
-|| basis_copy_function_to_box                 : 10374        0.34s   0.071%  ------ ||
-|| edft_apply_smearing_operator               :    68        0.36s   0.076%  ------ ||
-|| integrals_kinetic_spam3                    :    48        0.48s   0.101%  ------ ||
-|| projectors_func_ovlp_box_spam3             :    48        0.57s   0.119%  ------ ||
-|| restart_kernel_write                       :     8        0.59s   0.124%  ------ ||
-|| projectors_gradient_batch_cpu              :    48        0.67s   0.141%  ------ ||
-|| ngwf_gradient_build_batch_nl               :    48        0.67s   0.141%  ------ ||
-|| integrals_locpot_mat_els_batch             :   144        0.70s   0.148%  ------ ||
-|| function_ops_brappd_ketppd_spam3           :    93        0.74s   0.155%  ------ ||
-|| ngwf_gradient_extract_and_shave            :    48        1.00s   0.210%  ------ ||
-|| xc_energy_potential                        :    86        1.22s   0.257%  ------ ||
-|| basis_dot_function_with_box                : 90480        1.25s   0.262%  ------ ||
-|| ngwf_gradient_local                        :    48        1.25s   0.264%  ------ ||
-|| fourier_filter                             :  3120        1.85s   0.389%  ------ ||
-|| symmetry_impose_density                    :    86        2.13s   0.447%  ------ ||
-|| density_batch_row_sums                     :   516        2.14s   0.451%  ------ ||
-|| ngwf_gradient_build_batch                  :    48        2.17s   0.457%  ------ ||
-|| potential_apply_to_ngwf_batch              :   144        2.55s   0.536%  ------ ||
-|| integrals_locpot_dbl_grid                  :    72        3.26s   0.684%  ------ ||
-|| basis_add_function_to_box                  : 239.3k       3.69s   0.775%  ------ ||
-|| ngwf_gradient_batch                        :    48        5.07s   1.065%  ------ ||
-|| ngwf_gradient_lnv                          :     8        5.33s   1.119%  ------ ||
-|| restart_ngwfs_tightbox_output              :     7        5.73s   1.203%  ------ ||
-|| fourier_interpolate                        : 16536        9.41s   1.977%  ------ ||
-|| fourier_apply_box_cpu                      : 47838        9.62s   2.022%   8.132 ||
-|| density_fftbox_interpolate_multiply        :  6708        9.91s   2.083%  ------ ||
-|| density_batch_interp_deposit               :   516       10.17s   2.137%  ------ ||
-|| density_on_dbl_grid                        :   258       12.54s   2.635%  ------ ||
-|| hamiltonian_lhxc_calculate                 :    85       16.79s   3.529%  ------ ||
-|| edft_calculate                             :     8       19.99s   4.202%  ------ ||
-|| ngwf_cg_optimise                           :     1       35.39s   7.438%  ------ ||
-|| energy_and_force_init_cell                 :     1       77.39s  16.265%  ------ ||
-|| restart_ngwfs_tightbox_input               :     1      362.21s  76.126%  ------ ||
-|| energy_and_forces                          :     1      397.80s  83.605%  ------ ||
-|| total_time                                 :     1      475.80s 100.000%  ------ ||
+|| sparse_expand                              :    66        0.00s   0.001%  ------ ||
+|| pseudo_make_structure_factor               :     1        0.00s   0.001%  ------ ||
+|| sparse_set_to_garbage                      :   390        0.00s   0.001%  ------ ||
+|| pseudopotentials_core_density              :     1        0.00s   0.001%  ------ ||
+|| pseudopotentials_local_on_grid             :     1        0.00s   0.002%  ------ ||
+|| ngwf_gradient_coeffs                       :    11        0.01s   0.003%  ------ ||
+|| density_fftbox_interp_mult_imbal           : 12480        0.01s   0.004%  ------ ||
+|| pseudopotentials_nonlocal_mat              :    22        0.01s   0.005%  ------ ||
+|| sparse_transpose                           :   489        0.01s   0.005%  ------ ||
+|| density_init_guess_real                    :     1        0.02s   0.010%  ------ ||
+|| sparse_spam3toblacs_complex_slow           :  1014        0.03s   0.012%  ------ ||
+|| projectors_create_real                     :     3        0.03s   0.013%  ------ ||
+|| kernel_purify                              :    11        0.03s   0.013%  ------ ||
+|| linalg_dgemv                               :   151        0.04s   0.017%  ------ ||
+|| sparse_trace                               :  4143        0.05s   0.023%  ------ ||
+|| sparse_product                             :  2091        0.06s   0.027%  ------ ||
+|| basis_extract_function_from_box            :  1794        0.13s   0.053%  ------ ||
+|| cell_grid_extract_box_real                 :  4290        0.19s   0.080%  ------ ||
+|| dense_eigensolve                           :   411        0.29s   0.120%  ------ ||
+|| edft_diag_ngwf_ham                         :   411        0.31s   0.131%  ------ ||
+|| hartree_on_grid_single                     :   161        0.48s   0.202%  ------ ||
+|| hamiltonian_energy_components              :     1        0.62s   0.258%  ------ ||
+|| cell_grid_deposit_box_real                 : 12482        0.70s   0.291%  ------ ||
+|| ngwf_gradient_kinetic                      :    66        0.73s   0.304%  ------ ||
+|| density_fftbox_deposit_to_cell             : 12480        0.73s   0.308%  ------ ||
+|| projectors_init_fftbox_recip               :   135        0.77s   0.324%  ------ ||
+|| edft_apply_smearing_operator               :   137        0.83s   0.347%  ------ ||
+|| fourier_apply_cell_forward                 :   965        1.27s   0.532%   3.086 ||
+|| fourier_apply_cell_backward                :   967        1.43s   0.598%   2.753 ||
+|| integrals_kinetic_spam3                    :    66        1.48s   0.620%  ------ ||
+|| projectors_func_ovlp_box_spam3             :    66        1.69s   0.709%  ------ ||
+|| basis_copy_function_to_box                 : 18408        1.86s   0.778%  ------ ||
+|| projectors_gradient_batch_cpu              :    66        2.17s   0.910%  ------ ||
+|| ngwf_gradient_build_batch_nl               :    66        2.17s   0.911%  ------ ||
+|| function_ops_brappd_ketppd_spam3           :   129        2.77s   1.159%  ------ ||
+|| ngwf_gradient_extract_and_shave            :    66        3.01s   1.259%  ------ ||
+|| integrals_locpot_mat_els_batch             :   264        3.04s   1.274%  ------ ||
+|| ngwf_gradient_local                        :    66        4.01s   1.678%  ------ ||
+|| basis_dot_function_with_box                : 146.7k       4.73s   1.983%  ------ ||
+|| xc_energy_potential                        :   161        5.58s   2.339%  ------ ||
+|| ngwf_gradient_build_batch                  :    66        6.98s   2.924%  ------ ||
+|| fourier_filter                             :  5148        7.97s   3.339%  ------ ||
+|| restart_ngwfs_tightbox_output              :    10        8.10s   3.390%  ------ ||
+|| symmetry_impose_density                    :   160        9.36s   3.920%  ------ ||
+|| restart_kernel_write                       :    12       11.48s   4.806%  ------ ||
+|| potential_apply_to_ngwf_batch              :   264       13.31s   5.572%  ------ ||
+|| density_batch_row_sums                     :   960       13.74s   5.753%  ------ ||
+|| integrals_locpot_dbl_grid                  :   132       16.36s   6.851%  ------ ||
+|| ngwf_gradient_batch                        :    66       16.98s   7.110%  ------ ||
+|| ngwf_gradient_lnv                          :    11       17.62s   7.379%  ------ ||
+|| basis_add_function_to_box                  : 413.7k      19.73s   8.260%  ------ ||
+|| fourier_apply_box_cpu                      : 82206       39.95s  16.728%   7.899 ||
+|| fourier_interpolate                        : 30108       48.14s  20.155%  ------ ||
+|| density_fftbox_interpolate_multiply        : 12480       55.23s  23.124%  ------ ||
+|| density_batch_interp_deposit               :   960       56.37s  23.602%  ------ ||
+|| density_on_dbl_grid                        :   480       71.16s  29.796%  ------ ||
+|| energy_and_force_init_cell                 :     1       80.94s  33.891%  ------ ||
+|| hamiltonian_lhxc_calculate                 :   159       88.33s  36.987%  ------ ||
+|| edft_calculate                             :    11      105.38s  44.126%  ------ ||
+|| ngwf_cg_optimise                           :     1      145.16s  60.779%  ------ ||
+|| energy_and_forces                          :     1      157.34s  65.883%  ------ ||
+|| total_time                                 :     1      238.82s 100.000%  ------ ||
 ======================================================================================
 Overhead of generating timer report: 
 - 0 ms averaging over threads,
 - 0 ms ensuring consistency across MPI ranks,
-- 3 ms printing in order.
+- 7 ms printing in order.
 
-Job completed: 20-01-2026 16:43 (-0000)
+Job completed: 06-02-2026 09:13 (-0000)
 
