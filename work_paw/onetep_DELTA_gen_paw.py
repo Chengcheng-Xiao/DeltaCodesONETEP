@@ -61,7 +61,9 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_symmetry' : True,
         'use_time_reversal' : True,
-        'delta_e_conv' : False
+        'delta_e_conv' : False,
+        'write_denskern' : False,
+        'write_tightbox_ngwfs' :  False
     }
 
     keywords_nobel_gas= {
@@ -91,6 +93,8 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         'use_symmetry' : True,
         'use_time_reversal' : True,
         'delta_e_conv' : False,
+        'write_denskern' : False,
+        'write_tightbox_ngwfs' :  False,
 
         'do_properties': False,
         'species_pot' : [f'{element} {element}_JTH.paw'],
@@ -138,7 +142,9 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_symmetry' : True,
         'use_time_reversal' : True,
-        'delta_e_conv' : False
+        'delta_e_conv' : False,
+        'write_denskern' : False,
+        'write_tightbox_ngwfs' :  False
     }
 
     keywords_metal_mag = {
@@ -182,7 +188,9 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
 
         'use_symmetry' : True,
         'use_time_reversal' : True,
-        'delta_e_conv' : False
+        'delta_e_conv' : False,
+        'write_denskern' : False,
+        'write_tightbox_ngwfs' :  False
     }
 
     if mode == 'non_metal':
@@ -240,8 +248,9 @@ def gen_input(element_in,kx,ky,kz,structure_path,magmom,magmom_string,mode):
         atoms_tmp = atoms.copy()
         atoms_tmp.set_cell(cell*(strain**(1/3)))
         atoms_tmp.set_scaled_positions(frac_pos)
-        write(f'{element}_{strain}.dat', atoms_tmp, format='onetep-in', keywords
-              =keywords_count)
+        write(f'{element}_{strain}.dat', atoms_tmp, format='onetep-in',
+              keywords=keywords)
+              #  =keywords_count)
     return
 
 #------------------------------------------------------------------------------
