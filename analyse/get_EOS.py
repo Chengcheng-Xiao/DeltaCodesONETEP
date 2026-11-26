@@ -28,6 +28,9 @@ with open(output_file) as f:
     else:
         Energy = 0
 
+if Free_energy == 0 and Energy == 0:
+    sys.exit(f'ERROR: no energy found in {output_file}')
+
 print(f'{Volume} {Energy} {Free_energy}')
 
     

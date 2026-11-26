@@ -1,0 +1,1275 @@
+ +---------------------------------------------------------------+
+ |                                                               |
+ |        ####### #     # ####### ####### ####### ######         |
+ |        #     # ##    # #          #    #       #     #        |
+ |        #     # # #   # #          #    #       #     #        |
+ |        #     # #  #  # #####      #    #####   ######         |
+ |        #     # #   # # #          #    #       #              |
+ |        #     # #    ## #          #    #       #              |
+ |        ####### #     # #######    #    ####### #              |
+ |                                                               |
+ |        Linear-Scaling Ab Initio Total Energy Program          |
+ |                                                               |
+ |          Release for academic collaborators of ODG            |
+ |                                             Version 8.3.22    |
+ | Remote: git@github.com:Chengcheng-Xiao/onetep_ccx.git         |
+ | Local branch: master                                          |
+ | Commit ID: c97bf55e7c7fb7a09cd2e74d1d6e45e863ce66b6           |
+ | Date: Sat Nov 21 17:52:37 2026 +0000                          |
+ |                                                               |
+ +---------------------------------------------------------------+
+ |                                                               |
+ |  Authors:                                                     |
+ |  Jacek Dziedzic, Peter D. Haynes, Nicholas D. M. Hine,        |
+ |  Arash A. Mostofi, Mike C. Payne and Chris-Kriton Skylaris    |
+ |                                                               |
+ |  Contributors:                                                |
+ |  J. Aarons, L. Andrinopoulos, P. W. Avraam, B. Ayers,         |
+ |  R. A. Bell, A. Bhandari, G. A. Bramley, R. J. Charlton,      |
+ |  S. J. Clark, R. J. Clements, G. C. Constantinescu,           |
+ |  F. Corsetti, N. Corsini, O. Dieguez, S. M. M. Dubois,        |
+ |  K. K. B. Duff, J. M. Escartin, M. Escobar Azor, A. Greco,    |
+ |  H. Helal, Q. O. Hill, L. P. Lee, J.-H. Li,                   |
+ |  T. Li, E. B. Linscott, G. Moynihan, D. D. O`Regan,           |
+ |  O. K. Okan, E. Parkinson, M. J. S. Phipps,                   |
+ |  C. J. Pickard, J. C. A. Prentice, M. I. J. Probert,          |
+ |  L. E. Ratcliff, M. Robinson, G. A. O. Seaford,               |
+ |  A. Ruiz Serrano, M. dos Santos Dias, J. S. Spencer,          |
+ |  E. W. Tait, G. Teobaldi, D. Turban, V. Vitale,               |
+ |  K. A. Wilkinson, C. Weber, J. C. Womack, Y. C. Wong,         |
+ |  Chengcheng Xiao, N. Yeung and T. J. Zuehlsdorff.             |
+ |                                                               |
+ |                                   Copyright (c) 2004-2026     |
+ |                                                               |
+ |  Please cite:                                                 |
+ |  "The ONETEP linear-scaling density functional theory program"|
+ |   J. Chem. Phys. 152(17) 174111 (2020)                        |
+ |                                                               |
+ |          in all publications arising from your use of ONETEP. |
+ |                                                               |
+ +---------------------------------------------------------------+
+ |                                                               |
+ |   ONETEP is based on developments described in the following  |
+ |   publications:                                               |
+ |                                                               |
+ |  "Nonorthogonal generalized Wannier function pseudopotential  |
+ |   plane-wave method".                                         |
+ |   C.-K. Skylaris, A. A. Mostofi, P. D. Haynes, O. Dieguez,    |
+ |   M. C. Payne.                                                |
+ |   Phys. Rev. B 66 035119 (2002).                              |
+ |                                                               |
+ |  "Preconditioned iterative minimization for linear-scaling    |
+ |   electronic structure calculations".                         |
+ |   A. A. Mostofi, P. D. Haynes, C.-K. Skylaris, M. C. Payne.   |
+ |   J. Chem. Phys. 119(17), pp.8842-8848 (2003).                |
+ |                                                               |
+ |  "Total-energy calculations on a real space grid with         |
+ |   localized functions and a plane-wave basis".                |
+ |   A. A. Mostofi, C.-K. Skylaris, P. D. Haynes, M. C. Payne.   |
+ |   Comput. Phys. Commun. 147, pp.788-802 (2002).               |
+ |                                                               |
+ |  "Accurate kinetic energy evaluation in electronic structure  |
+ |   calculations with localized functions on real space grids"  |
+ |   C.-K. Skylaris, A. A. Mostofi, P. D. Haynes, C. J. Pickard, |
+ |   M. C. Payne.                                                |
+ |   Comput. Phys. Commun. 140, pp.315-322 (2001).               |
+ |                                                               |
+ |  "Accurate ionic forces and geometry optimization in linear-  |
+ |   scaling density-functional theory with local orbitals"      |
+ |   N. D. M. Hine, M. Robinson, P. D. Haynes, C.-K. Skylaris,   |
+ |   M. C. Payne, and A. A. Mostofi.                             |
+ |   Phys. Rev. B 83 195102 (2011).                              |
+ |                                                               |
+ +---------------------------------------------------------------+
+
+Job started: 22-11-2026 16:50 (-0000)
+ 
+Reading parameters from file "O.dat" ...... done
+
+Initializing kpt-parallel run with 512 kpars.
+ Initialized kpar           0  with            1 processes.
+If your calculation crashes here, before "Checking processes and threads..."
+is displayed, then your stack size is insufficient.
+If so, use "ulimit -s unlimited" at runtime.
+You can disable this check with "check_stack_size F".
+
+Checking processes and threads...
+      Default threads: 1
+   Running with 1 MPI process.
+   There are 64 MPI processes running on the same node as the root process.
+   Each MPI process is using: 
+               1 threads for simulation cell FFTs.
+               1 threads for threaded FFT box operations.
+               1 threads for loops over batched FFT box operations.
+               1 threads for loops over batched preconditioners.
+               1 threads in other parallel regions.
+   MPI Interface: S2 (use mpi) (-DMPI, no -DUSE_MPI_F08, no -DUSE_INCLUDE_MPIF).
+   MPI_ASYNC_PROTECTS_NONBLOCKING:  No. MPI_SUBARRAYS_SUPPORTED:  No.
+   FFTW Interface:   OMP-capable.
+   GPU Interface:    None.
+   GPU DL_MG solver: No.
+   GPU solvation:    No.
+   GPU FFT Backend:  None.
+   GPU DGEMM:        No (dense_threshold:   0.1000).
+   Number of GPU devices per node (OpenACC/CUDA/total): 0/0/0.
+   Number of comms groups: 1. Comms group size: 1.
+   GPU group size: 1.
+... done
+
+Basic input checks...
+Resetting ngwf_cg_rotate to TRUE for EDFT calculations
+... done
+
+Reading geometry and species blocks from file "O.dat" ...... done
+
+
+--------------------------------------------------------------------------------
+---------------------------------- INPUT FILE ----------------------------------
+--------------------------------------------------------------------------------
+
+cutoff_energy : 1200 eV                                                         
+delta_e_conv : F                                                                
+do_properties : F                                                               
+edft : T                                                                        
+edft_maxit : 4                                                                  
+edft_smearing_width : 0.05 eV                                                   
+edft_spin_fix : 5                                                               
+eigensolver_abstol : -1                                                         
+eigensolver_orfac : -1                                                          
+elec_energy_tol : 0.00001 eV                                                    
+extend_ngwf : T T T                                                             
+forces_output_detail : verbose                                                  
+full_rand_ngwf : F                                                              
+kpoint_gamma_centred : T                                                        
+kpoint_method : PW                                                              
+kpoint_mp_spacing : 0.0063502631                                                
+maxit_hotelling : 0                                                             
+maxit_ngwf_cg : 1000                                                            
+ngwfs_init_recip : T                                                            
+ngwfs_spin_polarized : T                                                        
+occ_mix : 1.0                                                                   
+output_detail : Normal                                                          
+paw : T                                                                         
+permit_unusual_ngwf_count : T                                                   
+pseudo_path : .                                                                 
+rand_seed_ngwf_dynamic : F                                                      
+spin : 0.0                                                                      
+spin_polarized : T                                                              
+task : SinglePoint                                                              
+use_cmplx_ngwfs : T                                                             
+use_symmetry : T                                                                
+use_time_reversal : T                                                           
+write_denskern : F                                                              
+write_forces : F                                                                
+write_tightbox_ngwfs : F                                                        
+xc_functional : PBE                                                             
+%BLOCK LATTICE_CART                                                             
+ang                                                                             
+4.35540872       0.00000000       0.00000000                                    
+0.00000000       4.36070051       0.00000000                                    
+1.84210270       0.00000000       4.28169129                                    
+%ENDBLOCK LATTICE_CART                                                          
+%BLOCK POSITIONS_ABS                                                            
+ang                                                                             
+O1    4.354771     0.000000     0.627996                                        
+O2    1.842741     0.000000     3.653696                                        
+O3    2.177066     2.180350     0.627996                                        
+O4    4.020445     2.180350     3.653696                                        
+%ENDBLOCK POSITIONS_ABS                                                         
+%BLOCK SPECIES                                                                  
+O1 O 8 -1 9.0                                                                   
+O2 O 8 -1 9.0                                                                   
+O3 O 8 -1 9.0                                                                   
+O4 O 8 -1 9.0                                                                   
+%ENDBLOCK SPECIES                                                               
+%BLOCK SPECIES_POT                                                              
+O1 O_JTH.paw                                                                    
+O2 O_JTH.paw                                                                    
+O3 O_JTH.paw                                                                    
+O4 O_JTH.paw                                                                    
+%ENDBLOCK SPECIES_POT                                                           
+%BLOCK SPECIES_ATOMIC_SET                                                       
+O1 "SOLVE conf=2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0"                               
+O2 "SOLVE conf=2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0"                               
+O3 "SOLVE conf=2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0"                               
+O4 "SOLVE conf=2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0"                               
+%ENDBLOCK SPECIES_ATOMIC_SET                                                    
+num_kpars : 512                                                                 
+devel_code: RADIAL_DERIV_GRID_FIX  EXC_ATOM_FULL_GRID                           
+simulationbox_pref: 21 21 21                                                    
+augbox_pref: 21 21 21                                                           
+coredenbox_pref: 21 21 21                                                       
+NGWF_THRESHOLD_ORIG=4e-6                                                        
+
+--------------------------------------------------------------------------------
+-------------------------------- END INPUT FILE --------------------------------
+--------------------------------------------------------------------------------
+
+
+ 
+ ESDF WARNING(1
+ ): "kpointmpspacing" (esdf_physical) has no units. Assume "1/bohr".
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Full system >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<<<<<<<< PAW Dataset information >>>>>>>>>>>>>>>>>>>>>>>>>>>
+File: O_JTH.paw; rc = 1.41 bohr; shape type =  2; rshape = 1.20 bohr;
+  Atomic number:  8;  ionic charge:  6.000000
+    Partial Wave 1: l = 0
+    Partial Wave 2: l = 0
+    Partial Wave 3: l = 1
+    Partial Wave 4: l = 1
+  Core charge supplied for Nonlinear Core Corrections
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+-------------------------- Atom counting information ---------------------------
+Symbol    Natoms    Nngwfs    Nprojs
+  O          4        16        32
+.......   ......    ......    ......
+Totals:      4        16        32
+--------------------------------------------------------------------------------
+
+=============================== PSINC grid sizes ===============================
+                      Simulation cell:   21 x  21 x  21
+                              FFT-box:   21 x  21 x  21
+                                  PPD:   21 x  21 x  21
+Grid space d1=  0.391929984999a0 (KE cutoff=  49.45236Eh =1345.66718eV)
+Grid space d2=  0.392406177088a0 (KE cutoff=  49.33241Eh =1342.40318eV)
+Grid space d3=  0.419441779893a0 (KE cutoff=  43.17781Eh =1174.92804eV)
+================================================================================
+
+********************* Fourier parallelisation information **********************
+       Coarse grid (whole simulation cell) dimensions:     21    21    21
+          Real-space ('12') slabs/proc (min max mean):     21    21    21
+         Recip-space ('23') slabs/proc (min max mean):     11    11    11
+********************************************************************************
+
+********************* Fourier parallelisation information **********************
+       Double grid (whole simulation cell) dimensions:     42    42    42
+          Real-space ('12') slabs/proc (min max mean):     42    42    42
+         Recip-space ('23') slabs/proc (min max mean):     22    22    22
+********************************************************************************
+ 
+---------------------- Summary of spin-dependent options -----------------------
+... Spin-polarised calculation.
+... Spin-polarised NGWFs.
+... Simulation cell initialised to total spin of           0.0000
+--------------------------------------------------------------------------------
+
+
+Atom SCF Calculation for O  : Z (AE atom) =   8 : Z (PS atom) =   6
+Config String: 2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0 2s2.0 2p4.0 conf=2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0
+Orbitals (num,occ):  2     2.00 4.00
+Orbitals   (num,l):  2        0    1
+Atom SCF converged after  21 iterations to a total energy of    -15.88955759
+Adjusting orbital occupancies:
+Orbitals (num,spin,occ):  2  1     1.00 2.50
+Orbitals   (num,spin,l):  2  1        0    1
+Orbitals (num,spin,occ):  2  2     1.00 1.50
+Orbitals   (num,spin,l):  2  2        0    1
+
+Atom SCF Calculation for O  : Z (AE atom) =   8 : Z (PS atom) =   6
+Config String: 2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0 2s2.0 2p4.0 conf=2s2.0 2p4.0 INIT SPIN=+1 CHARGE=0
+Orbitals (num,occ):  2     2.00 4.00
+Orbitals   (num,l):  2        0    1
+Atom SCF converged after  21 iterations to a total energy of    -15.88955759
+Adjusting orbital occupancies:
+Orbitals (num,spin,occ):  2  1     1.00 2.50
+Orbitals   (num,spin,l):  2  1        0    1
+Orbitals (num,spin,occ):  2  2     1.00 1.50
+Orbitals   (num,spin,l):  2  2        0    1
+
+Atom SCF Calculation for O  : Z (AE atom) =   8 : Z (PS atom) =   6
+Config String: 2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0 2s2.0 2p4.0 conf=2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0
+Orbitals (num,occ):  2     2.00 4.00
+Orbitals   (num,l):  2        0    1
+Atom SCF converged after  21 iterations to a total energy of    -15.88955759
+Adjusting orbital occupancies:
+Orbitals (num,spin,occ):  2  1     1.00 1.50
+Orbitals   (num,spin,l):  2  1        0    1
+Orbitals (num,spin,occ):  2  2     1.00 2.50
+Orbitals   (num,spin,l):  2  2        0    1
+
+Atom SCF Calculation for O  : Z (AE atom) =   8 : Z (PS atom) =   6
+Config String: 2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0 2s2.0 2p4.0 conf=2s2.0 2p4.0 INIT SPIN=-1 CHARGE=0
+Orbitals (num,occ):  2     2.00 4.00
+Orbitals   (num,l):  2        0    1
+Atom SCF converged after  21 iterations to a total energy of    -15.88955759
+Adjusting orbital occupancies:
+Orbitals (num,spin,occ):  2  1     1.00 1.50
+Orbitals   (num,spin,l):  2  1        0    1
+Orbitals (num,spin,occ):  2  2     1.00 2.50
+Orbitals   (num,spin,l):  2  2        0    1
+ 
+============================= Symmetry information =============================
+    Number of symmetry operations =           4
+     (reduced by initial atomic configurations)
+ 
+    Space group of crystal = #  12: C2/m, -C 2y
+ 
+    Set output_detail to be > Normal to print out symmetry operations.
+================================================================================
+
+=============================== K-points summary ===============================
+Monkhorst-Pack Mesh size:    21  20  20
+Monkhorst-Pack Mesh shift:    0   1   1
+Number of k-points before symmetry reduction:     8400
+Number of k-points after symmetry reduction:      2321
+   Set output_detail to be > Normal to print out the full k-point list.
+================================================================================
+
+Off gamma k-point(s) requested, complex NGWFs will be used
+
+============================ local K-points summary ============================
+Number |               Cartesian coordinates              |       Weight
+  1     -0.3635237485     -0.3431130625     -0.1930464323      0.0004761905
+  2     -0.3635237485     -0.3431130625     -0.1542192700      0.0004761905
+  3     -0.3635237485     -0.3431130625     -0.1153921076      0.0004761905
+  4     -0.3635237485     -0.3431130625     -0.0765649452      0.0004761905
+  5     -0.3635237485     -0.3431130625     -0.0377377828      0.0004761905
+================================================================================
+
+Complex-valued NGWFs will be used.
+
+Determining parallel strategy ...... done
+Calculating Ewald energy ...              -29.639003 Hartree
+Basis initialisation ...
+... done
+
+============================= Charge Augmentation ==============================
+                           Aug box size:   21 x  21 x  21
+================================================================================
+Sparse matrix initialisation ...
+ done
+NGWF initialisation ... done
+
+================================= Core Density =================================
+               Core den box size:   21 x  21 x  21
+================================================================================
+Density kernel initialisation
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.011380375830     -64.00513513600384  -6.40E+01
+#    1                          0.001204252482     -64.02422504319158  -1.91E-02
+#    2                          0.000029041020     -64.02445561950340  -2.31E-04
+#    3                          0.000018010503     -64.02445568052542  -6.10E-08
+#    4                          0.000017839323     -64.02445568054137  -1.59E-11
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.40244556805414E+01  Eh
+     [H,K] commutator            =   1.7839E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  001 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  1.2500E-03 >  4.0000E-06  | above tolerance
+ Net spin fixed for           4 more iterations.
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.74969450875887E+00
+   Predicted total energy    =      -6.42270098500445E+01 Eh
+   Predicted gain in energy  =      -2.02554169503173E-01 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.006218320729     -64.22699433430819  -2.03E-01
+#    1                          0.000363567978     -64.24412941021971  -1.71E-02
+#    2                          0.000066654712     -64.24415623944343  -2.68E-05
+#    3                          0.000038117111     -64.24415635086166  -1.11E-07
+#    4                          0.000036197719     -64.24415635136575  -5.04E-10
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42441563513657E+01  Eh
+     [H,K] commutator            =   3.6198E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  002 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.1878E-04 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  5.4925E-02 >  3.6749E-07  | above tolerance
+ Net spin fixed for           3 more iterations.
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.49291323344363E+00
+   Predicted total energy    =      -6.42792919212287E+01 Eh
+   Predicted gain in energy  =      -3.51355698629163E-02 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000925086638     -64.27846874138544  -3.43E-02
+#    1                          0.000128816544     -64.27923426151443  -7.66E-04
+#    2                          0.000040073015     -64.27925378030588  -1.95E-05
+#    3                          0.000007245467     -64.27925458854297  -8.08E-07
+EDFT occupancies loop converged after    3 iterations.
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42792545885430E+01  Eh
+     [H,K] commutator            =   7.2455E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  003 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  2.2629E-04 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  5.4925E-02 >  3.6749E-07  | above tolerance
+ Net spin fixed for           2 more iterations.
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.49772249885510E+00
+   Predicted total energy    =      -6.42887204563446E+01 Eh
+   Predicted gain in energy  =      -9.46586780167991E-03 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000156050603     -64.28877305862584  -9.52E-03
+#    1                          0.000086325546     -64.28841212613722   3.61E-04
+#    2                          0.000012009506     -64.28841615158103  -4.03E-06
+#    3                          0.000001168212     -64.28841663066258  -4.79E-07
+EDFT occupancies loop converged after    3 iterations.
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42884166306626E+01  Eh
+     [H,K] commutator            =   1.1682E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  004 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  1.3392E-04 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  8.7746E-03 >  3.6749E-07  | above tolerance
+ Net spin fixed for           1 more iterations.
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.13234745201087E+00
+   Predicted total energy    =      -6.42911597594826E+01 Eh
+   Predicted gain in energy  =      -2.74312882000061E-03 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000157125120     -64.29116448151098  -2.75E-03
+#    1                          0.000087813264     -64.29114583877184   1.86E-05
+#    2                          0.000012626023     -64.29114758562365  -1.75E-06
+#    3                          0.000002988337     -64.29114794035200  -3.55E-07
+EDFT occupancies loop converged after    3 iterations.
+
+ EDFT: Fixed-spin phase complete. Freeing spin.
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42911479403520E+01  Eh
+     [H,K] commutator            =   2.9883E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  005 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  6.9320E-05 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  2.2905E-03 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.72291247505507E+00
+   Predicted total energy    =      -6.42917613152587E+01 Eh
+   Predicted gain in energy  =      -6.13374906734521E-04 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000078293447     -64.29176228681909  -6.14E-04
+#    1                          0.000025540081     -64.29179187514843  -2.96E-05
+#    2                          0.000025531125     -64.29179187510404   4.44E-11
+#    3                          0.000025531029     -64.29179187510488  -8.38E-13
+#    4                          0.000025531053     -64.29179187510518  -2.98E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42917918751052E+01  Eh
+     [H,K] commutator            =   2.5531E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  006 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  3.8589E-05 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  6.8283E-04 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.04956231487882E+00
+   Predicted total energy    =      -6.42920260737229E+01 Eh
+   Predicted gain in energy  =      -2.34198617718562E-04 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000063525750     -64.29202864025801  -2.37E-04
+#    1                          0.000010865259     -64.29203026686760  -1.63E-06
+#    2                          0.000001011127     -64.29203042843481  -1.62E-07
+EDFT occupancies loop converged after    2 iterations.
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42920304284348E+01  Eh
+     [H,K] commutator            =   1.0111E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  007 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  1.9778E-05 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  1.6098E-04 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       3.38406496257861E+00
+   Predicted total energy    =      -6.42921324433661E+01 Eh
+   Predicted gain in energy  =      -1.02014931314898E-04 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000052822319     -64.29211131737016  -8.09E-05
+#    1                          0.000033988192     -64.29210180657842   9.51E-06
+#    2                          0.000025531445     -64.29210182331737  -1.67E-08
+#    3                          0.000025527854     -64.29210182331600   1.36E-12
+#    4                          0.000025527469     -64.29210182331646  -4.55E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921018233165E+01  Eh
+     [H,K] commutator            =   2.5527E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  008 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  2.0522E-05 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  5.9638E-05 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.30823852972640E+00
+   Predicted total energy    =      -6.42921228918104E+01 Eh
+   Predicted gain in energy  =      -2.10684939219163E-05 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000038832887     -64.29212837266216  -2.65E-05
+#    1                          0.000031463798     -64.29212574246795   2.63E-06
+#    2                          0.000030515372     -64.29212574265976  -1.92E-10
+#    3                          0.000030514865     -64.29212574265918   5.83E-13
+#    4                          0.000030514346     -64.29212574265947  -2.84E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921257426595E+01  Eh
+     [H,K] commutator            =   3.0514E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  009 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  1.4822E-05 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  1.7849E-05 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.02643086548793E+00
+   Predicted total energy    =      -6.42921424495811E+01 Eh
+   Predicted gain in energy  =      -1.67069216701066E-05 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000025495311     -64.29213643221088  -1.07E-05
+#    1                          0.000019050455     -64.29213666669511  -2.34E-07
+#    2                          0.000019047573     -64.29213666666519   2.99E-11
+#    3                          0.000019047505     -64.29213666666485   3.41E-13
+#    4                          0.000019047539     -64.29213666666493  -8.53E-14
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921366666649E+01  Eh
+     [H,K] commutator            =   1.9048E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  010 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  7.2285E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  5.9798E-06 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       6.73123634418793E-01
+   Predicted total energy    =      -6.42921403884530E+01 Eh
+   Predicted gain in energy  =      -3.72178811858248E-06 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000046585724     -64.29213396095662   2.71E-06
+#    1                          0.000012895844     -64.29213422846729  -2.68E-07
+#    2                          0.000001721798     -64.29213431708625  -8.86E-08
+EDFT occupancies loop converged after    2 iterations.
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921343170863E+01  Eh
+     [H,K] commutator            =   1.7218E-06
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  011 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  6.8765E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  2.7310E-06 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.34924345151342E+00
+   Predicted total energy    =      -6.42921492255104E+01 Eh
+   Predicted gain in energy  =      -1.49084241485298E-05 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000076660479     -64.29214630680043  -1.20E-05
+#    1                          0.000032875073     -64.29214675761729  -4.51E-07
+#    2                          0.000032864886     -64.29214675757923   3.81E-11
+#    3                          0.000032864749     -64.29214675757912   1.14E-13
+#    4                          0.000032864750     -64.29214675757918  -5.68E-14
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921467575792E+01  Eh
+     [H,K] commutator            =   3.2865E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  012 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.9549E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  3.1101E-06 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       1.03639860778279E-01
+   Predicted total energy    =      -6.42921468385482E+01 Eh
+   Predicted gain in energy  =      -8.09690021696952E-08 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000033182969     -64.29214687926823  -1.22E-07
+#    1                          0.000033261676     -64.29214687987361  -6.05E-10
+#    2                          0.000033261750     -64.29214687987226   1.35E-12
+#    3                          0.000033261696     -64.29214687987240  -1.42E-13
+#    4                          0.000033261650     -64.29214687987272  -3.13E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921468798727E+01  Eh
+     [H,K] commutator            =   3.3262E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  013 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.8339E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  3.1101E-06 >  3.6749E-07  | above tolerance
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.39657414205501E-02
+   Predicted total energy    =      -6.42921469213622E+01 Eh
+   Predicted gain in energy  =      -4.14895282574435E-08 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000033167775     -64.29214694860413  -6.87E-08
+#    1                          0.000033160927     -64.29214694867255  -6.84E-11
+#    2                          0.000033160959     -64.29214694867316  -6.11E-13
+#    3                          0.000033160941     -64.29214694867322  -5.68E-14
+#    4                          0.000033160866     -64.29214694867332  -9.95E-14
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921469486733E+01  Eh
+     [H,K] commutator            =   3.3161E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  014 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.7587E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  3.0573E-08 <  3.6749E-07  | CONVERGED
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       9.76934135871877E-03
+   Predicted total energy    =      -6.42921469811992E+01 Eh
+   Predicted gain in energy  =      -3.25258611155732E-08 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000033086276     -64.29214700248353  -5.38E-08
+#    1                          0.000033077532     -64.29214700251893  -3.54E-11
+#    2                          0.000033077566     -64.29214700251897  -4.26E-14
+#    3                          0.000033077508     -64.29214700252011  -1.14E-12
+#    4                          0.000033077521     -64.29214700252025  -1.42E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921470025203E+01  Eh
+     [H,K] commutator            =   3.3078E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  015 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.6989E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  1.7200E-08 <  3.6749E-07  | CONVERGED
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       7.50806099538524E-02
+   Predicted total energy    =      -6.42921473660025E+01 Eh
+   Predicted gain in energy  =      -3.63482243415092E-07 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000026590648     -64.29213936600698   7.64E-06
+#    1                          0.000053309617     -64.29214767260639  -8.31E-06
+#    2                          0.000046874972     -64.29214767957855  -6.97E-09
+#    3                          0.000046871314     -64.29214767957646   2.09E-12
+#    4                          0.000046870898     -64.29214767957676  -2.98E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921476795768E+01  Eh
+     [H,K] commutator            =   4.6871E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  016 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.0473E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  1.6926E-07 <  3.6749E-07  | CONVERGED
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.95637872312205E-03
+   Predicted total energy    =      -6.42921476922989E+01 Eh
+   Predicted gain in energy  =      -1.27221824186563E-08 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000046836665     -64.29214769996734  -2.04E-08
+#    1                          0.000046811962     -64.29214769999039  -2.31E-11
+#    2                          0.000046811890     -64.29214769999089  -4.97E-13
+#    3                          0.000046811912     -64.29214769999091  -1.42E-14
+#    4                          0.000046811912     -64.29214769999133  -4.26E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921476999913E+01  Eh
+     [H,K] commutator            =   4.6812E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  017 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs:   NOT CONVERGED
+  ========================================================================
+         NGWF RMS gradient =  4.0203E-06 >  4.0000E-06  | above tolerance
+  Maximum change in energy =  1.6926E-07 <  3.6749E-07  | CONVERGED
+  ========================================================================
+
+>>> Improving NGWFs using line search:
+  ========================================================================
+   Step length               =       2.98025660847711E-02
+   Predicted total energy    =      -6.42921477356786E+01 Eh
+   Predicted gain in energy  =      -3.56872931206453E-08 Eh
+  ========================================================================
+
+
+>>> Optimising kernel for current NGWFs:
+
+--------------------------- Ensemble-DFT optimisation --------------------------
+Running ScaLAPACK on    1 processor(s).
+With smearing scheme: FERMIDIRAC
+
+--------------------------------------------------------------------------------
+  Iter                              Commutator    Free_energy(A=E-TS)     DeltaA
+#    0                          0.000011849548     -64.29213958023263   8.12E-06
+#    1                          0.000054198333     -64.29214779021470  -8.21E-06
+#    2                          0.000048951601     -64.29214779479582  -4.58E-09
+#    3                          0.000048948498     -64.29214779479446   1.36E-12
+#    4                          0.000048947865     -64.29214779479462  -1.56E-13
+Finished EDFT density kernel iterations (   4)
+
+
+
+>>> Density kernel optimised for the current NGWF basis:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Total free energy           =  -6.42921477947946E+01  Eh
+     [H,K] commutator            =   4.8948E-05
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+################################################################################
+########################### NGWF CG iteration  018 #############################
+################################################################################
+
+>>> Checking for convergence of NGWFs: 
+           ........................................................
+           |         *** NGWF optimisation converged ***          |
+           | RMS NGWF gradient =    0.00000394608580              |
+           | Maximum change in energy =  0.00000002370082 / atom  |
+           | Criteria satisfied:                                  |
+           | -> RMS NGWF gradient lower than set threshold.       |
+           | -> Energy change per atom lower than set threshold.  |
+           ========================================================
+
+================================================================================
+           ---------------- ENERGY COMPONENTS (Eh) ----------------
+           | Kinetic                    :       29.50575503100778 |
+           | Core Hartree               :      -85.75019468169897 |
+           | CoreHart (non-coul chg cor):        0.00000000000000
+           | Hartree                    :       28.31799848030626 |
+           | Exchange-correlation       :      -11.49824946406559 |
+           | Ewald                      :      -29.63900341446330 |
+           | Dij0                       :        8.18126846213868 |
+           | Dijhartree                 :        0.05475565861888 |
+           | Exc [AE core]              :      -31.61967357612875 |
+           | Exc DC [AE core]           :      -16.27248803331387 |
+           | Exc [PS core]              :       -9.40088448519548 |
+           | Exc DC [PS core]           :      -12.48605021252109 |
+           | Exc [Core]                 :      -18.75431122447412 |
+           | Total [Sphere]             :        4.77154625429841 |
+           | Total                      :      -64.29214779461543 |
+           |------------------------------------------------------|
+           | Entropic contribution      :       -0.00000000017918 |
+           | Total free energy          :      -64.29214779479462 |
+           --------------------------------------------------------
+           Integrated compensation chrg.:        2.15888399760431
+           Integrated density           :       23.99999931209059
+           Integrated spin density      :        0.00000000000024
+           Integrated |spin density|    :        3.04046906495082
+           Fermi level of spin Up       :       -0.05157729645717
+           Fermi level of spin Down     :       -0.05157729645717
+================================================================================
+
+
+                        <<<<< CALCULATION SUMMARY >>>>>                         
+|ITER|    RMS GRADIENT   |     TOTAL ENERGY    |   step   |     Epredicted              
+   0     0.00125001591868    -64.02445568054137   1.749695    -64.22700985004454        
+   1     0.00041877856770    -64.24415635136575   2.492913    -64.27929192122866        
+   2     0.00022628730915    -64.27925458854297   2.497722    -64.28872045634465        
+   3     0.00013391886218    -64.28841663066258   2.132347    -64.29115975948258        
+   4     0.00006931982523    -64.29114794035200   1.722912    -64.29176131525874        
+   5     0.00003858931623    -64.29179187510518   2.049562    -64.29202607372289        
+   6     0.00001977827658    -64.29203042843481   3.384065    -64.29213244336613        
+   7     0.00002052158229    -64.29210182331646   1.308239    -64.29212289181038        
+   8     0.00001482208949    -64.29212574265947   1.026431    -64.29214244958114        
+   9     0.00000722845816    -64.29213666666493   0.673124    -64.29214038845305        
+  10     0.00000687645114    -64.29213431708625   1.349243    -64.29214922551040        
+  11     0.00000495485842    -64.29214675757918   0.103640    -64.29214683854818        
+  12     0.00000483392460    -64.29214687987272   0.023966    -64.29214692136225        
+  13     0.00000475871475    -64.29214694867332   0.009769    -64.29214698119918        
+  14     0.00000469890795    -64.29214700252025   0.075081    -64.29214736600250        
+  15     0.00000404734013    -64.29214767957676   0.002956    -64.29214769229894        
+  16     0.00000402027752    -64.29214769999133   0.029803    -64.29214773567863        
+  17     0.00000394608580    -64.29214779479462  <-- CG                                 
+
+------------------------------ TIMING INFORMATION ------------------------------
+AVERAGE TIME:     416.899s on      1 proc(s)                                    
+TOTAL TIME:       416.899s on      1 proc(s)                                    
+==================== AVERAGE TIMINGS FROM ALL PROCS (CUMULATIVE) =====================
+|| TAG                                         #calls     cpu time   %total  Gflops ||
+|| energy_and_forces_imbal_in                 :     1        0.00s   0.000%  ------ ||
+|| onetep.F90 final imbalance                 :     1        0.00s   0.000%  ------ ||
+|| onetep.F90 main loop imbalance             :     1        0.00s   0.000%  ------ ||
+|| energy_and_forces_imbal_out                :     1        0.00s   0.000%  ------ ||
+|| gpu_initial_spinup                         :     1        0.00s   0.000%  ------ ||
+|| hash_table_free                            :    39        0.00s   0.000%  ------ ||
+|| fourier_init_box                           :     2        0.00s   0.000%  ------ ||
+|| fourier_init_fftbox                        :     1        0.00s   0.000%  ------ ||
+|| sparse_init                                :     1        0.00s   0.000%  ------ ||
+|| ewald_calculate_energy                     :     1        0.00s   0.000%  ------ ||
+|| paw_tcore_hartree_on_grid                  :     1        0.00s   0.001%  ------ ||
+|| paw_tcore_density                          :     1        0.00s   0.001%  ------ ||
+|| sparse_expand                              :   390        0.00s   0.001%  ------ ||
+|| sparse_set_to_garbage                      :  2310        0.01s   0.002%  ------ ||
+|| pseudo_make_structure_factor               :     3        0.01s   0.002%  ------ ||
+|| hamiltonian_compute_integrated_densities   :    18        0.02s   0.004%  ------ ||
+|| linalg_dgemv                               :   176        0.02s   0.005%  ------ ||
+|| paw_dij_hartree                            :   488        0.02s   0.006%  ------ ||
+|| density_fftbox_interp_mult_imbal           : 61760        0.05s   0.012%  ------ ||
+|| projectors_create_real                     :    10        0.05s   0.012%  ------ ||
+|| sparse_spam3toblacs_complex_slow           :  8070        0.08s   0.019%  ------ ||
+|| sparse_transpose                           : 16790        0.19s   0.045%  ------ ||
+|| basis_extract_function_from_box            :  5920        0.24s   0.056%  ------ ||
+|| sparse_trace                               : 43650        0.26s   0.064%  ------ ||
+|| kernel_purify                              :    18        0.35s   0.083%  ------ ||
+|| paw_dataset_init                           :     1        0.44s   0.106%  ------ ||
+|| cell_grid_extract_box_real                 : 19416        0.49s   0.117%  ------ ||
+|| paw_species_calc_proj_prec_mat             :   180        0.62s   0.149%  ------ ||
+|| sparse_product                             : 42550        0.72s   0.174%  ------ ||
+|| hamiltonian_energy_components              :     1        0.75s   0.180%  ------ ||
+|| dense_eigensolve                           :  3460        0.97s   0.232%  ------ ||
+|| augmentation_screen_dij_spam3              :   387        1.03s   0.247%  ------ ||
+|| edft_diag_ngwf_ham                         :  3460        1.05s   0.251%  ------ ||
+|| density_init_guess_atomic_recip            :     2        1.07s   0.256%  ------ ||
+|| hartree_on_grid_single                     :   387        1.08s   0.258%  ------ ||
+|| ngwf_gradient_coeffs                       :    18        1.37s   0.328%  ------ ||
+|| ngwf_gradient_kinetic                      :   180        1.43s   0.343%  ------ ||
+|| projectors_init_fftbox_recip               :   940        1.50s   0.359%  ------ ||
+|| integrals_kinetic_spam3_cpu                :   390        2.52s   0.604%  ------ ||
+|| function_ops_brappd_ketppd_spam3           :   770        2.70s   0.648%  ------ ||
+|| aug_density_on_grid_spam3                  :   386        2.97s   0.713%  ------ ||
+|| edft_apply_smearing_operator               :   346        3.19s   0.764%  ------ ||
+|| energy_and_force_init_cell                 :     1        3.36s   0.805%  ------ ||
+|| projectors_grad_precond_batch_cpu          :   180        3.55s   0.851%  ------ ||
+|| integrals_locpot_mat_els_batch             :   840        3.80s   0.913%  ------ ||
+|| projectors_gradient_batch_cpu              :   180        4.35s   1.043%  ------ ||
+|| ngwf_gradient_build_batch_nl               :   180        4.35s   1.043%  ------ ||
+|| fourier_apply_cell_forward                 :  5027        4.36s   1.046%   3.565 ||
+|| cell_grid_deposit_box_real                 : 64852        5.04s   1.209%  ------ ||
+|| density_fftbox_deposit_to_cell             : 61760        5.07s   1.216%  ------ ||
+|| basis_copy_function_to_box                 : 81440        5.45s   1.308%  ------ ||
+|| projectors_func_ovlp_box_spam3_cpu         :   390        5.51s   1.323%  ------ ||
+|| ngwf_gradient_extract_and_shave            :   180        5.57s   1.336%  ------ ||
+|| fourier_apply_cell_backward                :  5032        5.81s   1.394%   2.677 ||
+|| symmetry_impose_density                    :  1544        6.28s   1.506%  ------ ||
+|| ngwf_gradient_local                        :   180        7.57s   1.816%  ------ ||
+|| basis_dot_function_with_box                : 467.8k       7.93s   1.901%  ------ ||
+|| ngwf_gradient_build_batch                  :   180       17.06s   4.093%  ------ ||
+|| xc_energy_potential                        :   387       17.39s   4.172%  ------ ||
+|| fourier_filter                             : 19200       18.54s   4.446%  ------ ||
+|| density_batch_row_sums                     :  3860       20.24s   4.855%  ------ ||
+|| basis_add_function_to_box                  : 1.172M      27.58s   6.615%  ------ ||
+|| aug_nonlocal_mat_spam3_embed_array         :   470       30.65s   7.352%  ------ ||
+|| paw_dij_xc                                 :   488       31.37s   7.524%  ------ ||
+|| ngwf_gradient_batch                        :   180       31.56s   7.571%  ------ ||
+|| potential_apply_to_ngwf_batch              :   840       31.64s   7.589%  ------ ||
+|| ngwf_gradient_lnv                          :    18       35.33s   8.475%  ------ ||
+|| integrals_locpot_dbl_grid                  :   840       35.49s   8.514%  ------ ||
+|| fourier_apply_box_cpu                      : 393.2k     117.57s  28.202%   9.453 ||
+|| fourier_interpolate                        : 142.7k     141.58s  33.960%  ------ ||
+|| density_fftbox_interpolate_multiply        : 61760      170.50s  40.898%  ------ ||
+|| density_batch_interp_deposit               :  3860      176.66s  42.376%  ------ ||
+|| density_on_dbl_grid                        :  3860      199.77s  47.918%  ------ ||
+|| hamiltonian_lhxc_calculate                 :   385      265.35s  63.648%  ------ ||
+|| edft_calculate                             :    18      335.33s  80.433%  ------ ||
+|| ngwf_cg_optimise                           :     1      406.06s  97.400%  ------ ||
+|| energy_and_forces                          :     1      412.95s  99.052%  ------ ||
+|| total_time                                 :     1      416.90s 100.000%  ------ ||
+======================================================================================
+Overhead of generating timer report: 
+- 0 ms averaging over threads,
+- 0 ms ensuring consistency across MPI ranks,
+- 0 ms printing in order.
+
+Job completed: 22-11-2026 16:57 (-0000)
+
